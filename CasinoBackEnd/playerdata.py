@@ -5,7 +5,7 @@ class PlayerData:
     def set_last_name(self, lastname):
         pass
 
-    def set_first_name(self, firstname)
+    def set_first_name(self, firstname):
         pass
 
     def set_finance(self, balance, won, lost):

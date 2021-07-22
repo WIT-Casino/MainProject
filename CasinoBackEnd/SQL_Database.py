@@ -1,7 +1,7 @@
 import sqlite3
 
 class SQL_Databases:
-    """This class is used for executing SQL queries using Python."""
+    """This class is used for executing SQL queries using Python. Default path to 'CasinoDatabase.db'"""
 
     def __init__(self, path="CasinoDatabase.db") -> None:
         """Connect to database and create a cursor."""
@@ -30,8 +30,9 @@ class SQL_Databases:
         
         self.con.commit()
     
-    def create_table_input_terinal(self):
+    def create_table_input_terminal(self):
         """Open consol input: Create table [consoleInput] ([consoleInput]);"""
+        
         tableName = input("Enter name of table: ")
 
         self.cur.execute(".tables")
@@ -56,9 +57,9 @@ class SQL_Databases:
         """Select * From [tableName]"""
 
         sqlCommand = "Select * From " +tableName
-        query_result = self.cur.execute(sqlCommand)
-        for i in query_result:
-            print(i)
+        self.cur.execute(sqlCommand)
+        return self.cur.fetchall()
+        
 
     def select_from_where(self, table, row, column, condition):
         """SELECT [ROW] FROM [TABLE] WHERE [COLUMN] = [CONDITION]"""

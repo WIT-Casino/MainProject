@@ -1,4 +1,6 @@
 from enum import Enum
+from SQL_Database import SQL_Databases
+from idrule import IdRule
 
 class GamePrefixID(Enum):
     BlackJack = 1
@@ -18,11 +20,30 @@ class GamePrefixID(Enum):
 class GameData():
     PrefixID: GamePrefixID
 
-    def __init__(self, date, amountWon, amountLost, matchID) -> None:
-        self.datePlayed = date
-        self.amountWon = amountWon
-        self.amountLost = amountLost
+    def __init__(self, matchID, newMatch = False) -> None:
+        self.sql = SQL_Databases()
+        
         self.matchID = matchID
+        self.amountWon = 0
+        self.amountLost = 0
+        self.date = 0
+
+        if not newMatch:
+            #get_data_from_database
+            #set_data
+            pass
+        
+
+    def set_data(self):
+        #
+        pass
+
+    def get_data_from_database(self):
+        pass
+
+    def update_date_to_database(self):
+        pass
+
 
 class G_BlackJack(GameData):
     """Black Jack- try to get 21, number cars = value ace can be 1 or 11 face cards are 10, bust if hit over 21"""

@@ -30,7 +30,7 @@ class SQL_Databases:
         
         self.con.commit()
     
-    def create_table_input_terinal(self):
+    def create_table_input_terminal(self):
         """Open consol input: Create table [consoleInput] ([consoleInput]);"""
         
         tableName = input("Enter name of table: ")

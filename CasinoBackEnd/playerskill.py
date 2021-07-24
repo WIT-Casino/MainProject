@@ -1,2 +1,2 @@
 class PlayerSkill:
-    pass
+        pass

@@ -43,9 +43,11 @@ class Plotter:
         plt.show()
 
     def pieChart(self, data, newLabels, explode, newTitle):
-        """Creates a pie chart of data with labels newLabes and title newTitle"""
-        """Explode will seperate that potion away from the center"""
-        """Ensure sum(data) >= 1, else black spaces will appear in chart"""
+        """Creates a pie chart of data with labels newLabes and title newTitle
+            
+            Explode will seperate that potion away from the center
+            
+            Ensure sum(data) >= 1, else black spaces will appear in chart"""
 
         fig, ax = plt.subplots()
         ax.pie(data, labels = newLabels, explode = explode)

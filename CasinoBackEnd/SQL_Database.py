@@ -102,15 +102,32 @@ class SQL_Databases:
         self.command = f"SELECT MAX(ROWID) from {table};"
         self.cur.execute(self.command)
         self.result = self.cur.fetchall()
-        return self.result[0]
+        return self.result[0][0]
 
     def get_partial_matches(self, table, row, column, condition):
-        """Return an array of rows that contain partial matches of a word."""
+        """Return an array of rows that contain partial matches of a word in a table."""
         
         self.command = f"SELECT {row} from {table} where {column} like {condition};"
         self.cur.execute(self.command)
         self.result = self.cur.fetchall()
         return self.result
+    
+    def update_set_where(self, table, newInfo, condition):
+        """UPDATE [table] SET [newInfo] WHERE [condition]
+        
+        Ex:
+        UPDATE PlayerMain SET Last = 'Doe', First = 'John' WHERE ID = '12345'
+        
+        table = "PlayerMain"
+        
+        newInfo = "Last = 'Doe', First = 'John'"
+        
+        condition = "ID = '12345'"
+        """
+        self.command = f"UPDATE {table} SET {newInfo} WHERE {condition}"
+        self.exec_and_commit(self.command)
+
+
     
 
 

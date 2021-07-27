@@ -12,8 +12,11 @@ class IdRule():
         try:
             ID = self.sql.get_last_rowID("PlayerMain") + 1
             return str(ID).zfill(IdRule.max_player_ID_num)
+            
         except TypeError:
             print("The table is empty")
+            return str(1).zfill(IdRule.max_player_ID_num)
+            
         
     
     def create_new_match_ID(self, gameID: int):

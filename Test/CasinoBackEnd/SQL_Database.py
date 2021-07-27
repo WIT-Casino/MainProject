@@ -102,6 +102,8 @@ class SQL_Databases:
         self.command = f"SELECT MAX(ROWID) from {table};"
         self.cur.execute(self.command)
         self.result = self.cur.fetchall()
+        if self.result[0][0] == None:
+            return 0
         return self.result[0][0]
 
     def get_partial_matches(self, table, row, column, condition):

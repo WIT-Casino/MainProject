@@ -64,14 +64,15 @@ class PlayerData:
         self.update_finance_to_DB()
 
     def add_player_to_DB(self, date):
-        last_id = self.sql.get_last_rowID()
+        last_id = self.sql.get_last_rowID("PlayerMain")
         if int(self._ID) < last_id:
             raise Exception(f"Player is already in the database. Player ID: {self._ID}. Last ID: {last_id}")
         else:
-            val = f"{self._ID}, {self._lastname}, {self._firstname}, {date}, 0"
+            val = f"\'{self._ID}\', \'{self._lastname}\', \'{self._firstname}\', {date}, 0"
+            print(val)
             self.sql.insert_into_table_values("PlayerMain", val)
 
-            val = f"{self._ID}, {self._balance}, {self._lost}, {self._won}"
+            val = f"\'{self._ID}\', {self._balance}, {self._lost}, {self._won}"
             self.sql.insert_into_table_values("PlayerFinance", val)
 
         

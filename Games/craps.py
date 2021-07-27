@@ -28,3 +28,4 @@ def craps():
         print("Tie!")
 
 craps()
+#This is definetely not how craps is played btw^

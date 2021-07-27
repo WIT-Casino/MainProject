@@ -4,9 +4,9 @@ class PlayerData:
     def __init__(self, ID, lastname = "TBU", firstname = "TBU", balance = 0, won = 0, lost = 0):
         # TBU = to be updated
         
-        self._ID = ID
-        self._lastname = lastname
-        self._firstname = firstname
+        self._ID = f"\'{ID}\'"
+        self._lastname = f"\'{lastname}\'"
+        self._firstname = f"\'{firstname}\'"
         self._balance = balance
         self._won = won
         self._lost = lost
@@ -64,7 +64,7 @@ class PlayerData:
         self.update_finance_to_DB()
 
     def add_player_to_DB(self, date):
-        last_id = self.sql.get_last_rowID()
+        last_id = self.sql.get_last_rowID("PlayerMain")
         if int(self._ID) < last_id:
             raise Exception(f"Player is already in the database. Player ID: {self._ID}. Last ID: {last_id}")
         else:

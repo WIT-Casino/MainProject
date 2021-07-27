@@ -1,4 +1,4 @@
-from SQL_Database import SQL_Databases
+from CasinoBackEnd import SQL_Database
 from idrule import IdRule
 from playerdata import PlayerData
 from gamedata import GameData

@@ -18,7 +18,7 @@ class PlayerData:
         # Set ID number (int) into temp. constructor ex.
         self._ID = new_ID        
 
-# <<<<<<< HEAD
+        
     def set_last_name(self, new_lastname):
         # Set Last Name (str) into temp. constructor ex.
         self._lastname = new_lastname       
@@ -27,14 +27,12 @@ class PlayerData:
     def set_first_name(self, new_firstname):
         # Set First Name (str) into temp. constructor ex.
         self._firstname = new_firstname       
-        
-# =======
+
     def set_name(self, new_lastname, new_firstname):
         # Set Last Name (str) here ex.
         self._lastname = new_lastname
         self._firstname = new_firstname
 
-# >>>>>>> 6a45be68a39b70934de3e78896f6f17973f2d685
 
     def set_finance(self, new_balance, new_won, new_lost):
         # Set Balance, Win, and Lost numbers (int, int, int) into temp. constructor ex.

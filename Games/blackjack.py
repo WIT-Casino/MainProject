@@ -156,4 +156,3 @@ def blackjack():
     elif dealercard > playercard:
         print("Dealer Wins!")
 
-blackjackplayer()

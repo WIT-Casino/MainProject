@@ -1,13 +1,12 @@
+from SQL_Database import SQL_Databases
+
+
 class PlayerData:
-<<<<<<< Updated upstream
-    def __init__(self, ID, lastname, firstname, balance, won, lost) -> None:
-        self._ID = ID
-=======
     def __init__(self, PID, lastname = "TBU", firstname = "TBU", balance = 0, won = 0, lost = 0):
         # TBU: to be updated
-        
+        self.sql = SQL_Databases()
+
         self._ID = PID
->>>>>>> Stashed changes
         self._lastname = lastname
         self._firstname = firstname
         self._balance = balance
@@ -15,33 +14,6 @@ class PlayerData:
         self._lost = lost
 
 
-<<<<<<< Updated upstream
-    def set_ID(self, new_ID): 
-        # Set ID number (int) here ex.
-        self._ID = new_ID        
-  
-
-    def set_last_name(self, new_lastname):
-        # Set Last Name (str) here ex.
-        self._lastname = new_lastname       
-    
-
-    def set_first_name(self, new_firstname):
-        # Set First Name (str) here ex.
-        self._firstname = new_firstname       
-        
-
-    def set_finance(self, new_balance, new_won, new_lost):
-        # Set Balance, Win, and Lost numbers (int, int, int) here ex.
-        self._balance = new_balance
-        self._won = new_won
-        self._lost = new_lost       
-
-
-    def get_finance(self):
-        # Return List of [Balance, Won, Lost]
-        pass
-=======
 #     def set_ID(self, new_ID): 
 #         # Set ID number (int) into temp. constructor ex.
 #         self._ID = new_ID        
@@ -106,15 +78,18 @@ class PlayerData:
 
     def get_firstname_from_DB(self):
         # go to PlayerMain table and return Last and First
-        self.sql.select_from_where("PlayerName", "First", "PID", self._firstname)
+        ID_in_quote = f"\'{self._ID}\'"
+        self._firstname = self.sql.select_from_where("PlayerMain", "First", "PID", ID_in_quote)[0][0]
         
     def get_lastname_from_DB(self):
         # go to PlayerMain table and return Last and First
-        self.sql.select_from_where("PlayerName", "Last", "PID", self._lastname)
+        ID_in_quote = f"\'{self._ID}\'"
+        self._lastname = self.sql.select_from_where("PlayerMain", "Last", "PID", ID_in_quote)[0][0]
 
     def get_finance_from_DB(self):
         # go to PlayerMain table and return Last and First
-        self.sql.select_from_where("PlayerFinance", "Balance", "PID", self._balance)
+        ID_in_quote = f"\'{self._ID}\'"
+        self._balance = self.sql.select_from_where("PlayerFinance", "Balance", "PID", ID_in_quote)[0][0]
 
     # def update_ID_to_DB(self):
     #     # use sql's UPDATE function to update PID with new self._ID  
@@ -135,4 +110,15 @@ class PlayerData:
         self.update_firstname_to_db()
         self.update_lastname_to_db()
         self.update_finance_to_db()
->>>>>>> Stashed changes
+
+def main():
+    pd = PlayerData("00001")
+    pd.get_finance_from_DB()
+    pd.get_lastname_from_DB()
+    pd.get_firstname_from_DB()
+    print(pd._balance)
+    print(pd._firstname)
+    print(pd._lastname)
+
+if __name__ == "__main__":
+    main()

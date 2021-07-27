@@ -1,23 +1,25 @@
 from enum import Enum
-
+from SQL_Database import SQL_Databases
 class GamePrefixID(Enum):
     BlackJack = 1
     Craps = 2
+    Roulette =3 
+    Slots = 4
+    Keno = 5
+    Poker = 6
+    Baccarat = 7
+    BigSix = 8
 
-    # TODO: 
-    # Fill in more games
+class MatchData:
 
+    def __init__(self, matchID, date, amountWon = 0, amountLost = 0) -> None:
+        self.sql = SQL_Databases()
+        
+        self.matchID = f"\'{matchID}\'"
+        self.amountWon = amountWon
+        self.amountLost = amountLost
+        self.date = date
 
-<<<<<<< Updated upstream
-class GameData():
-    PrefixID: GamePrefixID
-
-    def __init__(self) -> None:
-        pass
-
-class G_BlackJack(GameData):
-    PrefixID = GamePrefixID.BlackJack
-=======
 
     def set_amountWon(self, new_amountWon):
         # set the two ammount attributes
@@ -33,16 +35,16 @@ class G_BlackJack(GameData):
 
     def get_data_from_DB(self):
         # retrive amount won,  amount lost, and date in MatchData table by matching self.ID with MID
-        self.sql.select_from_where("MatchData", "Won", "MID", self.matchID)
-        self.sql.select_from_where("MatchData", "Lost", "MID", self.matchID)
-        self.sql.select_from_where("MatchData", "Date", "MID", self.matchID)
+        self.amountWon = self.sql.select_from_where("MatchData", "Won", "MID", self.matchID)[0][0]
+        self.amountLost = self.sql.select_from_where("MatchData", "Lost", "MID", self.matchID)[0][0]
+        self.date = self.sql.select_from_where("MatchData", "Date", "MID", self.matchID)[0][0]
 
     def update_data_to_DB(self):
         # Find the difference between class amount won and lost VS stored amount won and lost in the DB
         # then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
         # GID is the first 3 digits of MID
-        stored_Won = self.sql.select_from_where("MatchData", "Won", "MID", self.matchID)
-        stored_Lost = self.sql.select_from_where("MatchData", "Lost", "MID", self.matchID)
+        stored_Won = self.sql.select_from_where("MatchData", "Won", "MID", self.matchID)[0][0]
+        stored_Lost = self.sql.select_from_where("MatchData", "Lost", "MID", self.matchID)[0][0]
         
         if stored_Won == 0 and stored_Lost == 0:
             self.sql.update_set_where("MatchData", "Won", "PID", self.amountWon)
@@ -54,6 +56,7 @@ class GameData:
     PrefixID: GamePrefixID
     
     def __init__(self, gameID) -> None:
+        self.sql = SQL_Databases()
         self.gameID = gameID
         self.totalPlayerWon = 0
         self.totalPlayerLost = 0
@@ -68,8 +71,8 @@ class GameData:
 
     def get_amount_from_DB(self):
         # from GameMain
-        self.sql.select_from_where("GameMain", "TotalPlayerWon", "GID", self.gameID)
-        self.sql.select_from_where("GameMain", "TotalPlayerLost", "GID", self.gameID)
+        self.totalPlayerWon = self.sql.select_from_where("GameMain", "TotalPlayerWon", "GID", self.gameID)[0][0]
+        self.totalPlayerLost = self.sql.select_from_where("GameMain", "TotalPlayerLost", "GID", self.gameID)[0][0]
         
         
     
@@ -105,4 +108,9 @@ class G_BigSix(MatchData, GameData):
     """Big Six, Wheel of Fortune- """
     PrefixID = GamePrefixID.BigSix
     
->>>>>>> Stashed changes
+# def main():
+
+
+
+# if __name__ == "__main__":
+#     main()

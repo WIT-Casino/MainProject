@@ -1,5 +1,5 @@
 from CasinoBackEnd import SQL_Database
-from idrule import IdRule
+from idrule import IdRulepyth
 from playerdata import PlayerData
 from gamedata import GameData
 

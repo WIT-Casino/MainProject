@@ -1,3 +1,7 @@
+import sys
+
+sys.path.append('..')
+
 import sqlite3
 
 class SQL_Databases:
@@ -128,14 +132,6 @@ class SQL_Databases:
         self.exec_and_commit(self.command)
 
 
-    
-
-
-def main():
-    pass
-
-if __name__ == "__main__":
-    main()
 
 
 

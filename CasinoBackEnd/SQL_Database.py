@@ -7,7 +7,7 @@ import sqlite3
 class SQL_Databases:
     """This class is used for executing SQL queries using Python. Default path to 'CasinoDatabase.db'"""
 
-    def __init__(self, path="CasinoDatabase.db") -> None:
+    def __init__(self, path="/CasinoDatabase.db") -> None:
         """Connect to database and create a cursor."""
 
         self.__database = path
@@ -131,11 +131,3 @@ class SQL_Databases:
         self.command = f"UPDATE {table} SET {newInfo} WHERE {condition}"
         self.exec_and_commit(self.command)
 
-
-
-
-
-
-
-
-            

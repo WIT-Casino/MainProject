@@ -16,19 +16,64 @@ class MatchData:
     def __init__(self, matchID, date, amountWon = 0, amountLost = 0) -> None:
         self.sql = SQL_Databases()
         
-        self.matchID = matchID
+        self.matchID = f"\'{matchID}\'"
         self.amountWon = amountWon
         self.amountLost = amountLost
         self.date = date
 
 
-    def set_amount(self, amountWon, amountLost):
+    def set_amountWon(self, new_amountWon):
         # set the two ammount attributes
-        pass
+        self.amountWon = new_amountWon
 
-    def set_date(self, date):
+    def set_amountLost(self, new_amountLost):
+        # set the two ammount attributes
+        self.amountLost = new_amountLost
+
+    def set_date(self, new_date):
         # set date attributes
-        pass
+        self.date = new_date
+
+    def get_data_from_DB(self):
+        # retrive amount won,  amount lost, and date in MatchData table by matching self.ID with MID
+        self.amountWon = self.sql.select_from_where("MatchData", "Won", "MID", self.matchID)[0][0]
+        self.amountLost = self.sql.select_from_where("MatchData", "Lost", "MID", self.matchID)[0][0]
+        self.date = self.sql.select_from_where("MatchData", "Date", "MID", self.matchID)[0][0]
+
+    def update_data_to_DB(self):
+        # Find the difference between class amount won and lost VS stored amount won and lost in the DB
+        # then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
+        # GID is the first 3 digits of MID
+        stored_Won = self.sql.select_from_where("MatchData", "Won", "MID", self.matchID)[0][0]
+        stored_Lost = self.sql.select_from_where("MatchData", "Lost", "MID", self.matchID)[0][0]
+        
+        if stored_Won == 0 and stored_Lost == 0:
+            self.sql.update_set_where("MatchData", "Won", "PID", self.amountWon)
+            self.sql.update_set_where("MatchData", "Lost", "PID", self.amountLost)
+            self.sql.update_set_where("MatchData", "Date", "PID", self.date)
+
+
+class GameData:
+    PrefixID: GamePrefixID
+    
+    def __init__(self, gameID) -> None:
+        self.sql = SQL_Databases()
+        self.gameID = gameID
+        self.totalPlayerWon = 0
+        self.totalPlayerLost = 0
+
+    def set_amount_won(self, amountWon):
+        # set to class attribute
+        self.totalPlayerWon = amountWon
+
+    def set_amount_lost(self, amountLost):
+        # set to class attribute
+        self.totalPlayerLost = amountLost
+
+    def get_amount_from_DB(self):
+        # from GameMain
+        self.totalPlayerWon = self.sql.select_from_where("GameMain", "TotalPlayerWon", "GID", self.gameID)[0][0]
+        self.totalPlayerLost = self.sql.select_from_where("GameMain", "TotalPlayerLost", "GID", self.gameID)[0][0]
 
     def get_data_from_DB(self):
         # retrive amount won,  amount lost, and date in MatchData table by matching self.ID with MID
@@ -91,5 +136,6 @@ class G_Baccarat(MatchData, GameData):
 
 class G_BigSix(MatchData, GameData):
     """Big Six, Wheel of Fortune- """
-    PrefixID = GamePrefixID.BigSix
-    
+    PrefixID = GamePrefixID.BigSix 
+
+

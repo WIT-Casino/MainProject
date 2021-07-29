@@ -1,5 +1,7 @@
 from enum import Enum
 from SQL_Database import SQL_Databases
+from idrule import IdRule
+
 class GamePrefixID(Enum):
     BlackJack = 1
     Craps = 2
@@ -73,6 +75,16 @@ class GameData:
         # from GameMain
         self.totalPlayerWon = self.sql.select_from_where("GameMain", "TotalPlayerWon", "GID", self.gameID)[0][0]
         self.totalPlayerLost = self.sql.select_from_where("GameMain", "TotalPlayerLost", "GID", self.gameID)[0][0]
+
+    def set_data(self):
+        #
+        pass
+
+    def get_data_from_database(self):
+        pass
+
+    def update_date_to_database(self):
+        pass
         
         
     
@@ -106,11 +118,6 @@ class G_Baccarat(MatchData, GameData):
 
 class G_BigSix(MatchData, GameData):
     """Big Six, Wheel of Fortune- """
-    PrefixID = GamePrefixID.BigSix
-    
-# def main():
+    PrefixID = GamePrefixID.BigSix 
 
 
-
-# if __name__ == "__main__":
-#     main()

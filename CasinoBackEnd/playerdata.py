@@ -1,17 +1,17 @@
 from SQL_Database import SQL_Databases
 
-
 class PlayerData:
-    def __init__(self, PID, lastname = "TBU", firstname = "TBU", balance = 0, won = 0, lost = 0):
-        # TBU: to be updated
-        self.sql = SQL_Databases()
-
-        self._ID = PID
-        self._lastname = lastname
-        self._firstname = firstname
+    def __init__(self, ID, lastname = "TBU", firstname = "TBU", balance = 0, won = 0, lost = 0):
+        # TBU = to be updated
+        
+        self._ID = f"\'{ID}\'"
+        self._lastname = f"\'{lastname}\'"
+        self._firstname = f"\'{firstname}\'"
         self._balance = balance
         self._won = won
         self._lost = lost
+
+        self.sql = SQL_Databases()
 
 
 #     def set_ID(self, new_ID): 

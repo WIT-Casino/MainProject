@@ -1,6 +1,5 @@
 from enum import Enum
 from SQL_Database import SQL_Databases
-from idrule import IdRule
 
 class GamePrefixID(Enum):
     BlackJack = 1
@@ -76,18 +75,37 @@ class GameData:
         self.totalPlayerWon = self.sql.select_from_where("GameMain", "TotalPlayerWon", "GID", self.gameID)[0][0]
         self.totalPlayerLost = self.sql.select_from_where("GameMain", "TotalPlayerLost", "GID", self.gameID)[0][0]
 
-    def set_data(self):
-        #
+    def get_data_from_DB(self):
+        # retrive amount won,  amount lost, and date in MatchData table by matching self.ID with MID
+        pass    
+
+    def update_data_to_DB(self):
+        # Find the difference between class amount won and lost VS stored amount won and lost in the DB
+        # then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
+        # GID is the first 3 digits of MID
         pass
 
-    def get_data_from_database(self):
-        pass
-
-    def update_date_to_database(self):
-        pass
-        
-        
+class GameData:
+    PrefixID: GamePrefixID
     
+    def __init__(self, gameID) -> None:
+        self.gameID = gameID
+        self.totalPlayerWon = 0
+        self.totalPlayerLost = 0
+
+    def set_amount_won(self, amountWon):
+        # set to class attribute
+        pass
+
+    def set_amount_lost(self, amountLost):
+        # set to class attribute
+        pass
+
+    def get_amount_from_DB(self):
+        # from GameMain
+        pass
+    
+
 class G_BlackJack(MatchData, GameData):
     """Black Jack- try to get 21, number cars = value ace can be 1 or 11 face cards are 10, bust if hit over 21"""
     PrefixID = GamePrefixID.BlackJack

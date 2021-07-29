@@ -1,9 +1,13 @@
+import sys
+
+sys.path.append('..')
+
 import sqlite3
 
 class SQL_Databases:
     """This class is used for executing SQL queries using Python. Default path to 'CasinoDatabase.db'"""
 
-    def __init__(self, path="CasinoDatabase.db") -> None:
+    def __init__(self, path="/CasinoDatabase.db") -> None:
         """Connect to database and create a cursor."""
 
         self.__database = path
@@ -102,27 +106,28 @@ class SQL_Databases:
         self.command = f"SELECT MAX(ROWID) from {table};"
         self.cur.execute(self.command)
         self.result = self.cur.fetchall()
-        return self.result[0]
+        return self.result[0][0]
 
     def get_partial_matches(self, table, row, column, condition):
-        """Return an array of rows that contain partial matches of a word."""
+        """Return an array of rows that contain partial matches of a word in a table."""
         
         self.command = f"SELECT {row} from {table} where {column} like {condition};"
         self.cur.execute(self.command)
         self.result = self.cur.fetchall()
         return self.result
     
+    def update_set_where(self, table, newInfo, condition):
+        """UPDATE [table] SET [newInfo] WHERE [condition]
+        
+        Ex:
+        UPDATE PlayerMain SET Last = 'Doe', First = 'John' WHERE ID = '12345'
+        
+        table = "PlayerMain"
+        
+        newInfo = "Last = 'Doe', First = 'John'"
+        
+        condition = "ID = '12345'"
+        """
+        self.command = f"UPDATE {table} SET {newInfo} WHERE {condition}"
+        self.exec_and_commit(self.command)
 
-
-def main():
-    pass
-
-if __name__ == "__main__":
-    main()
-
-
-
-
-
-
-            

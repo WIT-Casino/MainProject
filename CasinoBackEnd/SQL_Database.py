@@ -130,25 +130,4 @@ class SQL_Databases:
         """
         self.command = f"UPDATE {table} SET {newInfo} WHERE {condition}"
         self.exec_and_commit(self.command)
-<<<<<<< HEAD
 
-
-    
-
-
-def main():
-    pass
-
-if __name__ == "__main__":
-    main()
-=======
-
-
-
-
-
-
-
-
-            
->>>>>>> main

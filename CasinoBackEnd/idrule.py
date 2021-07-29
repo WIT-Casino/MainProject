@@ -24,7 +24,10 @@ class IdRule():
             matchID = self.sql.get_last_rowID("MatchDetails") + 1
             matchID = str(gameID).zfill(IdRule.max_game_ID_num) + str(matchID).zfill(IdRule.max_match_ID_num)
             return matchID
+
         except TypeError:
             print("The table is empty")
+            matchID = str(gameID).zfill(IdRule.max_game_ID_num) + str(1).zfill(IdRule.max_match_ID_num)
+            return matchID
 
         

@@ -111,14 +111,13 @@ class PlayerData:
         self.update_lastname_to_db()
         self.update_finance_to_db()
 
-def main():
-    pd = PlayerData("00001")
-    pd.get_finance_from_DB()
-    pd.get_lastname_from_DB()
-    pd.get_firstname_from_DB()
-    print(pd._balance)
-    print(pd._firstname)
-    print(pd._lastname)
+    def add_player_to_DB(self, date):
+        last_id = self.sql.get_last_rowID("PlayerMain")
+        if int(self._ID) < last_id:
+            raise Exception(f"Player is already in the database. Player ID: {self._ID}. Last ID: {last_id}")
+        else:
+            val = f"{self._ID}, {self._lastname}, {self._firstname}, {date}, 0"
+            self.sql.insert_into_table_values("PlayerMain", val)
 
-if __name__ == "__main__":
-    main()
+            val = f"{self._ID}, {self._balance}, {self._lost}, {self._won}"
+            self.sql.insert_into_table_values("PlayerFinance", val)

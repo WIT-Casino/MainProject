@@ -1,7 +1,10 @@
+import sys
+sys.path.append('../')
+
 from CasinoBackEnd import SQL_Database
-from idrule import IdRulepyth
-from playerdata import PlayerData
-from gamedata import GameData
+# from idrule import IdRulepyth
+# from playerdata import PlayerData
+# from gamedata import GameData
 
 
 import datetime

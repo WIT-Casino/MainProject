@@ -1,6 +1,12 @@
 from enum import Enum
-from SQL_Database import SQL_Databases
 
+try:
+    from SQL_Database import SQL_Databases
+except ModuleNotFoundError:
+    import sys
+    sys.path.append(".")
+    from CasinoBackEnd.SQL_Database import SQL_Databases
+    
 class GamePrefixID(Enum):
     BlackJack = 1
     Craps = 2

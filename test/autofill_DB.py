@@ -1,10 +1,15 @@
 import sys
-sys.path.append('../')
 
-from CasinoBackEnd import SQL_Database
-# from idrule import IdRulepyth
-# from playerdata import PlayerData
-# from gamedata import GameData
+try:
+    sys.path.append('.')
+    from CasinoBackEnd.SQL_Database import SQL_Databases
+except ModuleNotFoundError:
+    sys.path.append('..')
+    from CasinoBackEnd.SQL_Database import SQL_Databases
+
+from CasinoBackEnd.idrule import IdRule
+from CasinoBackEnd.playerdata import PlayerData
+from CasinoBackEnd.gamedata import GameData
 
 
 import datetime

@@ -1,4 +1,9 @@
-from SQL_Database import SQL_Databases
+try:
+    from SQL_Database import SQL_Databases
+except ModuleNotFoundError:
+    import sys
+    sys.path.append(".")
+    from CasinoBackEnd.SQL_Database import SQL_Databases
 
 class IdRule():
     max_player_ID_num = 5

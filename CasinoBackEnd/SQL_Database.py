@@ -1,7 +1,3 @@
-import sys
-
-sys.path.append('..')
-
 import sqlite3
 
 class SQL_Databases:

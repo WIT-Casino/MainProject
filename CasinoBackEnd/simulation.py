@@ -64,10 +64,10 @@ class Simulation:
         plot.twoLinePlot(iterList, winningList, iterList, lossesList, "Game Number","Total ($)","Win Loss Graph",1)
 
 
-def main():
+"""def main():
     sim  = Simulation()
     sim.simOnePlayerNGames([10,0,0],.35,100)
 
 if __name__ == '__main__':
-    main()
+    main()"""
         

@@ -125,7 +125,6 @@ class PlayerData:
             val = f"{self._ID}, {self._balance}, {self._lost}, {self._won}"
             self.sql.insert_into_table_values("PlayerFinance", val)
 
-    #TODO
 
     def get_all_matches(self):
         """Return (MatchID, won, lost amounts, date) of all games played by the player"""

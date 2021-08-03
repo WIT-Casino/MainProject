@@ -130,13 +130,18 @@ class PlayerData:
     def get_all_matches(self):
         """Return (MatchID, won, lost amounts, date) of all games played by the player"""
         # Match PID column in MatchData table to find matches
-        pass
+        return self.sql.select_from_where(
+            "MatchData", "*", "PID", self._ID)
     
     def get_matches_from_game(self, gameID):
         """Return (MatchID, won, lost amounts, date) of a game played by this player"""
         # Use MatchData table
         # Match PID and parial match between argument gameID and MID column
-        pass
+        all_matches = self.get_all_matches()
+        temp_array = []
+        for match in all_matches:
+            if match[1][0:2] == gameID:
+                temp_array.append(match)   
 
 
 

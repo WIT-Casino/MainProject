@@ -1,5 +1,6 @@
-from random import seed
-from random import random
+import random
+from plotter import Plotter
+import time
 
 class Simulation:
     def __init__ (self) : 
@@ -10,36 +11,31 @@ class Simulation:
 
     def simOnePlayerOneGame(self, player, game):
         currentOdds = .25 + player.luck * .02 + player.skill * .04
-        seed(currentOdds)
+        random.seed(time.time())
         totalEarnings = 0
         winnings = 0
         bet = random(1,25)
         losses = 0
-        if random() < currentOdds:
+        if random.random() < currentOdds:
             winnings = winnings + bet
         else:
             losses = losses + bet
 
         winnings = winnings - losses
 
-    def simOnePlayerNGames(self, player, game, numberOfGames):
+    def simOnePlayerNGames(self, player, winrate, numberOfGames):
+        # player = [skill, luck, cheat]
         
-        if game == 1:
-            currentOdds = .25 + player.luck * .02 + player.skill * .04
-        elif game == 2:
-            currentOdds = .40 + player.luck * .01 + player.skill * .02
-        elif game == 3:
-            currentOdds = .30 + player.luck * .015 + player.skill * .03
+        currentOdds = winrate + player[1] * .01 + player[2] * .04 + player[0] * .02
+        random.seed(time.time())
 
-        seed(currentOdds)
-
-        earningList = list(0)
+        earningList = list([])
         earningList.clear()
-        winningList = list(0)
+        winningList = list([])
         winningList.clear()        
-        losses = list(0)
-        losses.clear()
-        iterList = list(0)
+        lossesList = list([])
+        lossesList.clear()
+        iterList = list([])
         iterList.clear()
 
         totalWin = 0
@@ -47,16 +43,18 @@ class Simulation:
         totalEarnings = 0
         
         for i in range(numberOfGames):
-            bet = random(1,25)
+            bet = 1 + random.random()*24
             iterList.append(i+1)
-            if random() < currentOdds:
+            if random.random() < currentOdds:
                 totalWin = totalWin + bet
                 winningList.append(totalWin)
                 totalEarnings = totalEarnings + bet
                 earningList.append(totalEarnings)
+                lossesList.append(totalLoss)
             else:
                 totalLoss = totalLoss + bet
                 lossesList.append(totalLoss)
+                winningList.append(totalWin)
                 totalEarnings = totalEarnings - bet
                 earningList.append(totalEarnings)
 
@@ -64,4 +62,12 @@ class Simulation:
 
         plot.linePlot(iterList, earningList, "Game Number","Total Earnings ($)","Earnings",1)
         plot.twoLinePlot(iterList, winningList, iterList, lossesList, "Game Number","Total ($)","Win Loss Graph",1)
+
+
+def main():
+    sim  = Simulation()
+    sim.simOnePlayerNGames([10,0,0],.35,100)
+
+if __name__ == '__main__':
+    main()
         

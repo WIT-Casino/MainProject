@@ -10,11 +10,11 @@ class Simulation:
         pass
 
     def simOnePlayerOneGame(self, player, winrate):
-        currentOdds = winrate + player.luck * .02 + player.skill * .04
+        currentOdds = winrate + player[0] * .015 + player[1] * .005 + player[2] * .03 
         random.seed(time.time())
         totalEarnings = 0
         winnings = 0
-        bet = random(1,25)
+        bet =  1 + random.random() *24
         losses = 0
         if random.random() < currentOdds:
             winnings = winnings + bet

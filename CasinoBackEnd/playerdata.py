@@ -141,7 +141,7 @@ class PlayerData:
         for match in all_matches:
             if match[1][0:2] == gameID:
                 temp_array.append(match)   
-
+        return temp_array
 
 
 ###################################################

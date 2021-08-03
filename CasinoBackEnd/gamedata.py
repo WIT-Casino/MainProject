@@ -58,21 +58,24 @@ class GameData:
         self.totalPlayerWon = 0
         self.totalPlayerLost = 0
 
-    def get_amount_from_DB(self):
+    def get_data_from_DB(self):
         # from GameMain
         self.totalPlayerWon = self.sql.select_from_where("GameMain", "TotalPlayerWon", "GID", self.gameID)[0][0]
         self.totalPlayerLost = self.sql.select_from_where("GameMain", "TotalPlayerLost", "GID", self.gameID)[0][0]
 
-    def get_data_from_DB(self):
-        # retrive amount won,  amount lost, and date in MatchData table by matching self.ID with MID
-        return self.sql.select_from_where(
-            "MatchData", "*", "PID", self._ID)  
-
-    def update_data_to_DB(self):
+    def update_data_to_DB(self, new_playerWon, new_playerLost):
         # Find the difference between class amount won and lost VS stored amount won and lost in the DB
         # then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
         # GID is the first 3 digits of MID
-        pass
+        stored_Won = self.sql.select_from_where("GameMain", "TotalPLayerWon", "GID", self.gameID)[0][0]
+        stored_Lost = self.sql.select_from_where("GameMain", "TotalPlayerLost", "GID", self.gameID)[0][0]
+        
+        if stored_Won == 0 and stored_Lost == 0:
+            self.sql.update_set_where("GameMain", "TotalPlayerWon", "GID", self.totalPlayerWon)
+            self.sql.update_set_where("GameMain", "TotalPlayerLost", "GID", self.totalPlayerLost)
+  
+        self.totalPlayerWon = new_playerWon
+        self.totalPlayerLost = new_playerLost
 
 class G_BlackJack(MatchData, GameData):
     """Black Jack- try to get 21, number cars = value ace can be 1 or 11 face cards are 10, bust if hit over 21"""

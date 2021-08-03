@@ -90,26 +90,6 @@ class GameData:
         # then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
         # GID is the first 3 digits of MID
         pass
-
-class GameData:
-    PrefixID: GamePrefixID
-    
-    def __init__(self, gameID) -> None:
-        self.gameID = gameID
-        self.totalPlayerWon = 0
-        self.totalPlayerLost = 0
-
-    def set_amount_won(self, amountWon):
-        # set to class attribute
-        pass
-
-    def set_amount_lost(self, amountLost):
-        # set to class attribute
-        pass
-
-    def get_amount_from_DB(self):
-        # from GameMain
-        pass
     
 
 class G_BlackJack(MatchData, GameData):

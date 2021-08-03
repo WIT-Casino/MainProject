@@ -26,8 +26,9 @@ class IdRule():
     
     def create_new_match_ID(self, gameID: int):
         try:
-            matchID = self.sql.get_last_rowID("MatchDetails") + 1
-            matchID = str(gameID).zfill(IdRule.max_game_ID_num) + str(matchID).zfill(IdRule.max_match_ID_num)
+            last_ID = self.sql.get_last_rowID("MatchData") + 1
+            
+            matchID = str(gameID).zfill(IdRule.max_game_ID_num) + str(last_ID).zfill(IdRule.max_match_ID_num)
             return matchID
 
         except TypeError:

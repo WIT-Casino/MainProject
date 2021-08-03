@@ -9,8 +9,8 @@ class Simulation:
     def __del__ (self) :
         pass
 
-    def simOnePlayerOneGame(self, player, game):
-        currentOdds = .25 + player.luck * .02 + player.skill * .04
+    def simOnePlayerOneGame(self, player, winrate):
+        currentOdds = winrate + player.luck * .02 + player.skill * .04
         random.seed(time.time())
         totalEarnings = 0
         winnings = 0
@@ -25,8 +25,8 @@ class Simulation:
 
     def simOnePlayerNGames(self, player, winrate, numberOfGames):
         # player = [skill, luck, cheat]
-        
-        currentOdds = winrate + player[1] * .01 + player[2] * .04 + player[0] * .02
+                # base win rate + playerskill   + player luck     + player cheat
+        currentOdds = winrate + player[0] * .015 + player[1] * .005 + player[2] * .03 
         random.seed(time.time())
 
         earningList = list([])
@@ -64,10 +64,9 @@ class Simulation:
         plot.twoLinePlot(iterList, winningList, iterList, lossesList, "Game Number","Total ($)","Win Loss Graph",1)
 
 
-"""def main():
+def main():
     sim  = Simulation()
-    sim.simOnePlayerNGames([10,0,0],.35,100)
+    sim.simOnePlayerNGames([10,10,10],.25,100)
 
 if __name__ == '__main__':
-    main()"""
-        
+    main()

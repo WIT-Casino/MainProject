@@ -13,7 +13,6 @@ from CasinoBackEnd.gamedata import GameData
 
 
 import datetime
-from datetime import date, timedelta
 import random
 
 def main():
@@ -37,8 +36,9 @@ def main():
         amount_lost = random.randint(0, 8000)
 
         random_number_of_days = random.randrange(days_in_between)
-        random_date = start_date + timedelta(days=random_number_of_days)
+        random_date = start_date + datetime.timedelta(days=random_number_of_days)
         date_in_int = int(random_date.strftime('%Y%m%d'))
+        
         player = PlayerData(ID=new_p_id, lastname=lname, firstname=fname, balance=money, won=amount_won, lost=amount_lost)
         player.add_player_to_DB(date_in_int)
 

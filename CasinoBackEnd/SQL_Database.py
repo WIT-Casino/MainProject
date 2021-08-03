@@ -3,7 +3,7 @@ import sqlite3
 class SQL_Databases:
     """This class is used for executing SQL queries using Python. Default path to 'CasinoDatabase.db'"""
 
-    def __init__(self, path="/CasinoDatabase.db") -> None:
+    def __init__(self, path="CasinoDatabase.db") -> None:
         """Connect to database and create a cursor."""
 
         self.__database = path
@@ -66,14 +66,14 @@ class SQL_Databases:
 
         self.command = f"SELECT {row} from {table} where {column} = {condition};"
         self.exec_and_commit(self.command)
-        self.result = self.cur.fetchall()
-        return self.result
+        result = self.cur.fetchall()
+        return result
 
     def select_from(self, tableName, attributes):
         """Select [attributes] From [tableName]"""
         
         sqlCommand = "Select " +attributes +" From " +tableName
-        query_result = self.cur.execute(sqlCommand)
+        query_result = self.cur.execute(sqlCommand).fetchall()
         return query_result
 
     def delete_from_table_where(self, table, column, condition):

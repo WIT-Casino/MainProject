@@ -27,7 +27,7 @@ class MatchData:
         self.amountLost = amountLost
         self.date = date
 
-    def get_data_from_DB(self):
+    def pull_data_from_DB(self):
         # retrive amount won,  amount lost, and date in MatchData table by matching self.ID with MID
         self.amountWon = self.sql.select_from_where("MatchData", "Won", "MID", self.matchID)[0][0]
         self.amountLost = self.sql.select_from_where("MatchData", "Lost", "MID", self.matchID)[0][0]
@@ -58,7 +58,7 @@ class GameData:
         self.totalPlayerWon = 0
         self.totalPlayerLost = 0
 
-    def get_data_from_DB(self):
+    def pull_data_from_DB(self):
         # from GameMain
         self.totalPlayerWon = self.sql.select_from_where("GameMain", "TotalPlayerWon", "GID", self.gameID)[0][0]
         self.totalPlayerLost = self.sql.select_from_where("GameMain", "TotalPlayerLost", "GID", self.gameID)[0][0]
@@ -108,5 +108,4 @@ class G_Baccarat(MatchData, GameData):
 class G_BigSix(MatchData, GameData):
     """Big Six, Wheel of Fortune- """
     PrefixID = GamePrefixID.BigSix 
-
 

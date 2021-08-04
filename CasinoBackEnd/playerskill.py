@@ -4,9 +4,7 @@ except ModuleNotFoundError:
     import sys
     sys.path.append(".")
     from CasinoBackEnd.SQL_Database import SQL_Databases
-
-from SQL_Database import SQL_Databases
-
+    
 class PlayerSkill:
     def __init__(self, ID, Skill, Cheat, LUCK) -> None:
             

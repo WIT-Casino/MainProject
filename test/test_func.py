@@ -1,10 +1,14 @@
 import sys
-sys.path.append('../')
-
-
 import pytest
 
-from CasinoBackEnd import SQL_Database
+try:
+    sys.path.append('.')
+    from CasinoBackEnd.SQL_Database import SQL_Databases
+except ModuleNotFoundError:
+    sys.path.append('..')
+    from CasinoBackEnd.SQL_Database import SQL_Databases
 
-class TestCases(pytest):
+
+
+class TestCases():
     pass

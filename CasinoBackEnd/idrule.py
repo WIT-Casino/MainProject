@@ -1,4 +1,9 @@
-from SQL_Database import SQL_Databases
+try:
+    from SQL_Database import SQL_Databases
+except ModuleNotFoundError:
+    import sys
+    sys.path.append(".")
+    from CasinoBackEnd.SQL_Database import SQL_Databases
 
 class IdRule():
     max_player_ID_num = 5
@@ -21,10 +26,14 @@ class IdRule():
     
     def create_new_match_ID(self, gameID: int):
         try:
-            matchID = self.sql.get_last_rowID("MatchDetails") + 1
-            matchID = str(gameID).zfill(IdRule.max_game_ID_num) + str(matchID).zfill(IdRule.max_match_ID_num)
+            last_ID = self.sql.get_last_rowID("MatchData") + 1
+            
+            matchID = str(gameID).zfill(IdRule.max_game_ID_num) + str(last_ID).zfill(IdRule.max_match_ID_num)
             return matchID
+
         except TypeError:
             print("The table is empty")
+            matchID = str(gameID).zfill(IdRule.max_game_ID_num) + str(1).zfill(IdRule.max_match_ID_num)
+            return matchID
 
         

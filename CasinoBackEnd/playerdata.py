@@ -108,7 +108,7 @@ class PlayerData:
         self._lost = self.sql.select_from_where(
             "PlayerFinance", "totalLost", "PID", self._ID)[0][0]
         self._win = self.sql.select_from_where(
-            "PlayerFinance", "totalWin", "PID", self._ID)[0][0]
+            "PlayerFinance", "totalWon", "PID", self._ID)[0][0]
 
     def add_player_to_DB(self):
         """Add all the new class attributes to DB as a new player"""

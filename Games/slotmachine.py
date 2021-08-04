@@ -33,5 +33,3 @@ def slots():
             print("Better Luck Next Time, Try Again!")
             print('---------------------')
         attempts += 1
-
-slots()

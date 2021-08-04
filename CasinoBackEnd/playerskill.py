@@ -47,17 +47,17 @@ class PlayerSkill:
 
     def pull_skill_from_DB(self):
         """ go to PlayerSkill table and return Skill"""
-        ID_in_quote = f"'{self._ID}'"
+        ID_in_quote = f"{self._ID}"
         self._skill = self.sql.select_from_where("PlayerSkill", "Skill", "PID", ID_in_quote)[0][0]
         
     def pull_cheat_from_DB(self):
         """ go to PlayerSkill table and return Cheat stat""" 
-        ID_in_quote = f"'{self._ID}'"
+        ID_in_quote = f"{self._ID}"
         self._cheat = self.sql.select_from_where("PlayerSkill", "Cheat", "PID", ID_in_quote)[0][0]
 
     def pull_luck_from_DB(self):
         """ go to PlayerSkill table and return LUCK stat""" 
-        ID_in_quote = f"'{self._ID}'"
+        ID_in_quote = f"{self._ID}"
         self._luck = self.sql.select_from_where("PlayerSkill", "LUCK", "PID", ID_in_quote)[0][0]
 
     

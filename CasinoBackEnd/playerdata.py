@@ -107,8 +107,8 @@ class PlayerData:
             "PlayerFinance", "Balance", "PID", self._ID)[0][0]
         self._lost = self.sql.select_from_where(
             "PlayerFinance", "totalLost", "PID", self._ID)[0][0]
-        self._win = self.sql.select_from_where(
-            "PlayerFinance", "totalWin", "PID", self._ID)[0][0]
+        self._won = self.sql.select_from_where(
+            "PlayerFinance", "totalWon", "PID", self._ID)[0][0]
 
     def add_player_to_DB(self):
         """Add all the new class attributes to DB as a new player"""
@@ -143,6 +143,13 @@ class PlayerData:
                 temp_array.append(match)   
         return temp_array
 
+def main():
+    player = PlayerData("00001")
+
+    print(player.get_finance())
+
+if __name__ == "__main__":
+    main()
 
 ###################################################
 #   Set functions

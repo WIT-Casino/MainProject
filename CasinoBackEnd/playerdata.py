@@ -1,9 +1,11 @@
 try:
     from SQL_Database import SQL_Databases
+    from idrule import IdRule
 except ModuleNotFoundError:
     import sys
     sys.path.append(".")
     from CasinoBackEnd.SQL_Database import SQL_Databases
+    
 
 
 class PlayerData:
@@ -139,14 +141,39 @@ class PlayerData:
         all_matches = self.get_all_matches()
         temp_array = []
         for match in all_matches:
-            if match[1][0:2] == gameID:
+            if match[1][0:3] == gameID:
                 temp_array.append(match)   
         return temp_array
 
 def main():
-    player = PlayerData("00001")
+    ## BETA TEST USE PLAYER: 00001, Smith, Liam, 20201218, 0 
+   # Test 1:
+    # player = PlayerData("00001")
+    # print(player.get_finance())
 
-    print(player.get_finance())
+    ##############################
+   # Test 2: Update Lastname Ex: Smith -> Larry 
+    # Lastname_change = "Smith"
+    # player.update_lastname_to_DB(Lastname_change)
+
+    ##############################
+   # Test 3: Update Firstname Ex: Liam -> Jerry 
+    # Firstname_change = "Liam"
+    # player.update_firstname_to_DB(Firstname_change)
+
+    ##############################
+   # Test 4: Get all matches; Should show all games player has played
+    # print(player.get_all_matches())
+
+    ##############################
+   # Test 5: Get a match; Should show a game player has played 
+    # Gamble_ID = "004"
+    # print(player.get_matches_from_game(Gamble_ID))
+
+    ##############################
+   # Test 7: Update ID Ex: 00001 -> 01110 
+    # ID_change = "01110"
+    # player.update_ID_to_DB(ID_change)
 
 if __name__ == "__main__":
     main()

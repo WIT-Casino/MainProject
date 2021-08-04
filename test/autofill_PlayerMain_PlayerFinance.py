@@ -1,14 +1,18 @@
 import sys
-sys.path.append('../')
 
-from CasinoBackEnd import SQL_Database
-# from idrule import IdRulepyth
-# from playerdata import PlayerData
-# from gamedata import GameData
+try:
+    sys.path.append('.')
+    from CasinoBackEnd.SQL_Database import SQL_Databases
+except ModuleNotFoundError:
+    sys.path.append('..')
+    from CasinoBackEnd.SQL_Database import SQL_Databases
+
+from CasinoBackEnd.idrule import IdRule
+from CasinoBackEnd.playerdata import PlayerData
+from CasinoBackEnd.gamedata import GameData
 
 
 import datetime
-from datetime import date, timedelta
 import random
 
 def main():
@@ -32,8 +36,9 @@ def main():
         amount_lost = random.randint(0, 8000)
 
         random_number_of_days = random.randrange(days_in_between)
-        random_date = start_date + timedelta(days=random_number_of_days)
+        random_date = start_date + datetime.timedelta(days=random_number_of_days)
         date_in_int = int(random_date.strftime('%Y%m%d'))
+        
         player = PlayerData(ID=new_p_id, lastname=lname, firstname=fname, balance=money, won=amount_won, lost=amount_lost)
         player.add_player_to_DB(date_in_int)
 

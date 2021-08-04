@@ -63,10 +63,10 @@ class Simulation:
         plot.linePlot(iterList, earningList, "Game Number","Total Earnings ($)","Earnings",1)
         plot.twoLinePlot(iterList, winningList, iterList, lossesList, "Game Number","Total ($)","Win Loss Graph",1)
 
-
+"""
 def main():
     sim  = Simulation()
     sim.simOnePlayerNGames([10,10,10],.25,100)
 
 if __name__ == '__main__':
-    main()
+    main()"""

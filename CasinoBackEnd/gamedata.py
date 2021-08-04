@@ -85,11 +85,11 @@ class G_Craps(MatchData, GameData):
     """Craps- """
     PrefixID = GamePrefixID.Craps
 
-class G_Roulette(GameData):
+class G_Roulette(MatchData, GameData):
     """Roulette- 1 to 10 and 19 to 28, odd numbers are red and even are black. In ranges from 11 to 18 and 29 to 36, odd numbers are black and even are red"""
     PrefixID = GamePrefixID.Roulette
 
-class G_Slots(GameData):
+class G_Slots(MatchData, GameData):
     """Slots- Pull"""
     PrefixID = GamePrefixID.Slots
 

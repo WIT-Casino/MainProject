@@ -155,5 +155,3 @@ def blackjack():
         print("Player wins!")
     elif dealercard > playercard:
         print("Dealer Wins!")
-
-blackjackplayer()

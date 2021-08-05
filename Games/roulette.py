@@ -25,9 +25,17 @@ def Roulette():
     print('____________________________________________________________')
     
     if player == 6:
+        
+       
+       check = 0
+    while check == 0:
         playerIn =int(input('Enter Number to bet: '))
-    
-    print('You Bet option:',player)
+        if playerIn >= 0 and playerIn <= 36:
+            check = 1
+        else:
+            print("Out of range. Input again!")
+
+    print('You Bet option:',player, 'Number',playerIn)
     
     spin = random.randint(0,36)
     print('Landed on: ',spin)
@@ -71,3 +79,4 @@ def Roulette():
             print('You Lost')
     else:
         print('invalid bet')
+

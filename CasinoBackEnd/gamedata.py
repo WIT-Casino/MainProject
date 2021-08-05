@@ -27,26 +27,13 @@ class MatchData:
         self.amountLost = amountLost
         self.date = date
 
-
-    def set_amountWon(self, new_amountWon):
-        # set the two ammount attributes
-        self.amountWon = new_amountWon
-
-    def set_amountLost(self, new_amountLost):
-        # set the two ammount attributes
-        self.amountLost = new_amountLost
-
-    def set_date(self, new_date):
-        # set date attributes
-        self.date = new_date
-
-    def get_data_from_DB(self):
+    def pull_data_from_DB(self):
         # retrive amount won,  amount lost, and date in MatchData table by matching self.ID with MID
         self.amountWon = self.sql.select_from_where("MatchData", "Won", "MID", self.matchID)[0][0]
         self.amountLost = self.sql.select_from_where("MatchData", "Lost", "MID", self.matchID)[0][0]
         self.date = self.sql.select_from_where("MatchData", "Date", "MID", self.matchID)[0][0]
 
-    def update_data_to_DB(self):
+    def update_data_to_DB(self, new_amountWon, new_amountLost, new_date):
         # Find the difference between class amount won and lost VS stored amount won and lost in the DB
         # then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
         # GID is the first 3 digits of MID
@@ -58,6 +45,9 @@ class MatchData:
             self.sql.update_set_where("MatchData", "Lost", "PID", self.amountLost)
             self.sql.update_set_where("MatchData", "Date", "PID", self.date)
 
+        self.amountWon = new_amountWon
+        self.amountLost = new_amountLost
+        self.date = new_date
 
 class GameData:
     PrefixID: GamePrefixID
@@ -68,29 +58,24 @@ class GameData:
         self.totalPlayerWon = 0
         self.totalPlayerLost = 0
 
-    def set_amount_won(self, amountWon):
-        # set to class attribute
-        self.totalPlayerWon = amountWon
-
-    def set_amount_lost(self, amountLost):
-        # set to class attribute
-        self.totalPlayerLost = amountLost
-
-    def get_amount_from_DB(self):
+    def pull_data_from_DB(self):
         # from GameMain
         self.totalPlayerWon = self.sql.select_from_where("GameMain", "TotalPlayerWon", "GID", self.gameID)[0][0]
         self.totalPlayerLost = self.sql.select_from_where("GameMain", "TotalPlayerLost", "GID", self.gameID)[0][0]
 
-    def get_data_from_DB(self):
-        # retrive amount won,  amount lost, and date in MatchData table by matching self.ID with MID
-        pass    
-
-    def update_data_to_DB(self):
+    def update_data_to_DB(self, new_playerWon, new_playerLost):
         # Find the difference between class amount won and lost VS stored amount won and lost in the DB
         # then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
         # GID is the first 3 digits of MID
-        pass
-    
+        stored_Won = self.sql.select_from_where("GameMain", "TotalPLayerWon", "GID", self.gameID)[0][0]
+        stored_Lost = self.sql.select_from_where("GameMain", "TotalPlayerLost", "GID", self.gameID)[0][0]
+        
+        if stored_Won == 0 and stored_Lost == 0:
+            self.sql.update_set_where("GameMain", "TotalPlayerWon", "GID", self.totalPlayerWon)
+            self.sql.update_set_where("GameMain", "TotalPlayerLost", "GID", self.totalPlayerLost)
+  
+        self.totalPlayerWon = new_playerWon
+        self.totalPlayerLost = new_playerLost
 
 class G_BlackJack(MatchData, GameData):
     """Black Jack- try to get 21, number cars = value ace can be 1 or 11 face cards are 10, bust if hit over 21"""
@@ -101,11 +86,11 @@ class G_Craps(MatchData, GameData):
     PrefixID = GamePrefixID.Craps
 
 class G_Roulette(MatchData, GameData):
-    """Roulette"""
+    """Roulette- 1 to 10 and 19 to 28, odd numbers are red and even are black. In ranges from 11 to 18 and 29 to 36, odd numbers are black and even are red"""
     PrefixID = GamePrefixID.Roulette
 
 class G_Slots(MatchData, GameData):
-    """Slots"""
+    """Slots- Pull"""
     PrefixID = GamePrefixID.Slots
 
 class G_Keno(MatchData, GameData):
@@ -123,5 +108,4 @@ class G_Baccarat(MatchData, GameData):
 class G_BigSix(MatchData, GameData):
     """Big Six, Wheel of Fortune- """
     PrefixID = GamePrefixID.BigSix 
-
 

@@ -27,4 +27,4 @@ def craps():
     elif dicesum1 == dicesum2:
         print("Tie!")
 
-craps()
+# craps()

@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter import ttk
+from typing import Tuple
+from CasinoBackEnd.SQL_Database import SQL_Databases
 from CasinoBackEnd.playerdata import PlayerData
 from CasinoBackEnd.admin import Admin
 from CasinoBackEnd.playerskill import PlayerSkill
@@ -15,7 +17,7 @@ class MainApp:
         self.main.title("Wentworth Casino")
         self.main.configure(bg="red3")
 
-        
+        self.sql = SQL_Databases()
         self.admin = Admin()
         self.plotter = Plotter()
 
@@ -40,8 +42,6 @@ class MainApp:
             # Empty table 
             for match in match_list.get_children():
                 match_list.delete(match)
-            
-            records = player.get_all_matches()
 
             if id == None:
                 for i, record in enumerate(records):
@@ -152,7 +152,7 @@ class MainApp:
             mid_label.grid(row=1, column=0, padx=10, pady=10)
             mid_entry.grid(row=1, column=1, padx=10, pady=10)
             
-            mid_graph['values'] = ('Win/Loss Overtime', 'Win Amount')
+            mid_graph['values'] = ('Win/Loss Overtime', 'Won Amount', 'Lost Amount')
             mid_graph.grid(row=0, column=2, padx=10, pady=10)
             mid_graph.current()
 
@@ -160,10 +160,26 @@ class MainApp:
             plot.grid(row=1, column=2, padx=10, pady=10)
 
         def show_graph(graph_type):
-            if graph_type == "Win/Loss Overtime":
-                print("Win/Loss Overtime")
-            elif graph_type == "Win Amount":
-                print("Win Amount")
+            if graph_type == "Win/Loss Overtime":                
+                amount_won = [record[3] for record in records]
+                amount_lost = [record[4] for record in records]
+                date = [record[2] for record in records]
+                self.plotter.twoLinePlot(date, amount_won, date, amount_lost, "Date", "Amount", "Amount Won/Losses over Time", True)
+            elif graph_type == "Won Amount":
+                amount_won = [0]*8
+                for record in records:
+                    i = int(record[1][0:3]) - 1
+                    amount_won[i] = amount_won[i] + record[3]
+                labels = ["Black Jack", "Craps", "Roullete", "Slots", "Keno","Poker","Baccarat","Big Six"]
+                self.plotter.pieChart(amount_won, labels, "Amount Won in Each Game", explode=True)
+            elif graph_type == "Lost Amount":
+                amount_lost = [0]*8
+                for record in records:
+                    i = int(record[1][0:3]) - 1
+                    amount_lost[i] = amount_lost[i] + record[4]
+                labels = ["Black Jack", "Craps", "Roullete", "Slots", "Keno","Poker","Baccarat","Big Six"]
+                self.plotter.pieChart(amount_lost, labels, "Amount Lost in Each Game", explode=True)
+             
             else:
                 pass
 
@@ -171,6 +187,8 @@ class MainApp:
         
         player = PlayerData(id)
         finances = player.get_finance()
+        records = player.get_all_matches()
+        records = sorted(records, key=lambda x: x[2]) # sorted by date
         player_skills = PlayerSkill(id)
 
         ### Create widgets
@@ -199,8 +217,6 @@ class MainApp:
         graph_frame()
 
         
-
-
     def player_page(self):
         self.main.withdraw()
   
@@ -387,10 +403,39 @@ class MainApp:
 
         
     def games_page(self):
-        self.main.withdraw()
+        pass
+            
 
     def revenue_page(self):
-        pass
+        match_data = self.sql.select_from("MatchData", "*")
+        records_by_date = sorted(match_data, key=lambda x: x[2])
+
+        profit = []
+        date = []
+        day_profit = 0        
+
+        for i, record in enumerate(records_by_date, start=0):
+            day_profit = day_profit + record[3] - record[4]
+            current_day = record[2]
+            if i == len(records_by_date)-1:
+                next_day = current_day
+            else:
+                next_day = records_by_date[i+1][2]
+
+            if current_day != next_day:
+                profit.append(day_profit)
+                date.append(current_day)
+                day_profit = 0
+            
+        self.plotter.linePlot(date, profit, "Date", "Profit", "Profit for Each Day", 1)
+
+        game_data = self.sql.select_from("GameMain", "*")
+        labels = [record[1] for record in game_data]
+        won = [record[2] for record in game_data]   # Player won here so casino lost
+        lost = [record[3] for record in game_data]  # and vice versa
+        self.plotter.pieChart(lost, labels, "Amount Earned in Each Game", explode=True)
+        self.plotter.pieChart(won, labels, "Amount Lost in Each Game", explode=True)
+
    
     def main_menu(self) -> None:
         app_width = 500

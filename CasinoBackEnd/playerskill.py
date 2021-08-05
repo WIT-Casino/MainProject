@@ -7,17 +7,18 @@ except ModuleNotFoundError:
     
 class PlayerSkill:
     def __init__(self, ID, Skill = 1, Cheat = 1, LUCK = 1) -> None:
-            
+        self.sql = SQL_Databases()
+
         self._ID = f"\'{ID}\'"
         self._skill = f"{Skill}"
         self._cheat = f"{Cheat}"
         self._luck = f"{LUCK}"
-
+        
         self.pull_cheat_from_DB()
         self.pull_luck_from_DB()
         self.pull_skill_from_DB()
 
-        self.sql = SQL_Databases()
+        
 
 
     def get_skill(self):
@@ -64,4 +65,3 @@ class PlayerSkill:
         ID_in_quote = f"{self._ID}"
         self._luck = self.sql.select_from_where("PlayerSkill", "LUCK", "PID", ID_in_quote)[0][0]
 
-    

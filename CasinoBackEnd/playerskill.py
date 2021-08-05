@@ -16,6 +16,18 @@ class PlayerSkill:
 
         self.sql = SQL_Databases()
 
+    def get_skill(self):
+        """Return skill"""
+        return self._skill
+
+    def get_cheat(self):
+        """Return skill"""
+        return self._cheat
+    
+    def get_luck(self):
+        """Return skill"""
+        return self._luck
+
     # def update_ID_to_db(self, new_ID):
     #     # pulls ID from temp player and updates the db with the temp ID
     #     condtn = f"PID = \'{self._ID}\'"

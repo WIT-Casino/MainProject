@@ -1,8 +1,11 @@
 from tkinter import *
 from tkinter import ttk
+from typing import Tuple
+from CasinoBackEnd.SQL_Database import SQL_Databases
 from CasinoBackEnd.playerdata import PlayerData
 from CasinoBackEnd.admin import Admin
-from CasinoBackEnd.playerdata import PlayerData
+from CasinoBackEnd.playerskill import PlayerSkill
+from CasinoBackEnd.plotter import Plotter
 
 
 class MainApp:
@@ -14,84 +17,125 @@ class MainApp:
         self.main.title("Wentworth Casino")
         self.main.configure(bg="red3")
 
-        
+        self.sql = SQL_Databases()
         self.admin = Admin()
+        self.plotter = Plotter()
 
         self.main_menu()
 
         self.main.mainloop()
 
     def player_profile(self, player_info):
-        player = PlayerData(player_info[2])
-        finances = player.get_finance()
+        id = player_info[2]
+        if id == 0:
+            return None
+            
+        def select_record(event):
+                selected = match_list.focus()
+                mid_entry.delete(0, END)
+                mid_entry.insert(0, match_list.item(selected, 'values')[0])
+
+                gid_entry.delete(0, END)
+                gid_entry.insert(0, match_list.item(selected, 'values')[0][0:3])
+
+        def populate_match_table(id = None):
+            # Empty table 
+            for match in match_list.get_children():
+                match_list.delete(match)
+
+            if id == None:
+                for i, record in enumerate(records):
+                    match_list.insert(parent='', index='end', iid=i, text="", values=(record[1], record[3], record[4], record[2]))
+            else:
+                new_records = [r for r in records if r[0] == id]
+                for i, record in enumerate(new_records):
+                    match_list.insert(parent='', index='end', iid=i, text="", values=(record[1], record[3], record[4], record[2])) 
+        
+        def main_window():
+            profile.title("Player Profile")
+            profile.configure(bg="#D3D3D3")
+            app_width = 1050
+            app_height = 500
+            screen_width = profile.winfo_screenwidth()
+            screen_height = profile.winfo_screenheight()
+            x = (screen_width / 2) - (app_width / 2)
+            y = (screen_height / 2 ) - (app_height / 2)
+            profile.geometry(f'{app_width}x{app_height}+{int(x)}+{int(y)}')
+
         def profile_frame():
             data_frame = LabelFrame(profile, text="Player Information", font="calibri 12 ",bg="#D3D3D3")
             data_frame.pack(fill="x", expand="yes", padx=20)
 
             f_label = Label(data_frame, text="First Name", font="calibri 12 ",bg="#D3D3D3")
             f_label.grid(row=0, column=0, padx=10, pady=10)
-            f_entry = Entry(data_frame, text=player[0])
+            f_entry = Entry(data_frame)
+            f_entry.insert(0,player_info[0])
             f_entry.grid(row=0, column=1, padx=10, pady=10)
 
             l_label = Label(data_frame, text="Last Name", font="calibri 12 ",bg="#D3D3D3")
             l_label.grid(row=0, column=2, padx=10, pady=10)
-            l_entry = Entry(data_frame, text=player[1])
+            l_entry = Entry(data_frame)
+            l_entry.insert(0,player_info[1])
             l_entry.grid(row=0, column=3, padx=10, pady=10)
 
             id_label = Label(data_frame, text="ID", font="calibri 12 ",bg="#D3D3D3")
             id_label.grid(row=0, column=4, padx=10, pady=10)
-            id_entry = Entry(data_frame, text=player[2])
+            id_entry = Entry(data_frame)
+            id_entry.insert(0,player_info[2])
             id_entry.grid(row=0, column=5, padx=10, pady=10)
 
-            w_label = Label(data_frame, text="Wins", font="calibri 12 ",bg="#D3D3D3")
+            w_label = Label(data_frame, text="Amount Won", font="calibri 12 ",bg="#D3D3D3")
             w_label.grid(row=1, column=0, padx=10, pady=10)
-            w_entry = Entry(data_frame, text=finances[2])
+            w_entry = Entry(data_frame)
+            w_entry.insert(0,finances[1])
             w_entry.grid(row=1, column=1, padx=10, pady=10)
 
-            ls_label = Label(data_frame, text="Losses", font="calibri 12 ",bg="#D3D3D3")
+            ls_label = Label(data_frame, text="Amount Lost", font="calibri 12 ",bg="#D3D3D3")
             ls_label.grid(row=1, column=2, padx=10, pady=10)
-            ls_entry = Entry(data_frame, text=finances[3])
+            ls_entry = Entry(data_frame)
+            ls_entry.insert(0,finances[2])
             ls_entry.grid(row=1, column=3, padx=10, pady=10)
 
             b_label = Label(data_frame, text="Balance", font="calibri 12 ",bg="#D3D3D3")
             b_label.grid(row=1, column=4, padx=10, pady=10)
-            b_entry = Entry(data_frame, text=finances[1])
+            b_entry = Entry(data_frame)
+            b_entry.insert(0,finances[0])
             b_entry.grid(row=1, column=5, padx=10, pady=10)
 
-            sk_label = Label(data_frame, text="Skill Rating", font="calibri 12 ",bg="#D3D3D3")
+            sk_label = Label(data_frame, text="Skill Rating(0-10)", font="calibri 12 ",bg="#D3D3D3")
             sk_label.grid(row=2, column=0, padx=10, pady=10)
             sk_entry = Entry(data_frame)
+            sk_entry.insert(0,player_skills.get_skill())
             sk_entry.grid(row=2, column=1, padx=10, pady=10)
 
-            ch_label = Label(data_frame, text="Cheat Rating", font="calibri 12 ",bg="#D3D3D3")
+            ch_label = Label(data_frame, text="Cheat Rating(0-10)", font="calibri 12 ",bg="#D3D3D3")
             ch_label.grid(row=2, column=2, padx=10, pady=10)
             ch_entry = Entry(data_frame)
+            ch_entry.insert(0,player_skills.get_cheat())
             ch_entry.grid(row=2, column=3, padx=10, pady=10)
 
-            lk_label = Label(data_frame, text="Luck Rating", font="calibri 12 ",bg="#D3D3D3")
+            lk_label = Label(data_frame, text="Luck Rating(0-10)", font="calibri 12 ",bg="#D3D3D3")
             lk_label.grid(row=2, column=4, padx=10, pady=10)
             lk_entry = Entry(data_frame)
+            lk_entry.insert(0,player_skills.get_luck())
             lk_entry.grid(row=2, column=5, padx=10, pady=10)
 
+            populate_match_table()
 
         def match_table():
-            style = ttk.Style()
             style.theme_use('default')
             style.configure("Treeview", background="#D3D3D3", foreground="black", rowheight=25, fieldbackground ="#D3D3D3")
             style.map('Treeview', background=[('selected', "blue")])
-            list_frame = Frame(profile)
             list_frame.pack(pady=10)
-            list_scroll = Scrollbar(list_frame)
-            list_scroll.pack(side=RIGHT, fill=Y)
-            match_list = ttk.Treeview(list_frame, yscrollcommand=list_scroll.set, selectmode="extended")
-            match_list.pack()
+            list_scroll.pack(side=RIGHT, fill='y')
+            match_list.pack(padx=10, fill='x', expand='yes')
             list_scroll.config(command=match_list.yview)
             match_list['columns'] = ("MID", "Won","Lost", "Date")
             match_list.column("#0", width=0, stretch=NO)
             match_list.column("MID", anchor=W, width=100) 
-            match_list.column("Won", anchor=CENTER, width=50) 
-            match_list.column("Lost", anchor=CENTER, width=50)
-            match_list.column("Date", anchor=CENTER, width=50)
+            match_list.column("Won", anchor=CENTER, width=100) 
+            match_list.column("Lost", anchor=CENTER, width=100)
+            match_list.column("Date", anchor=CENTER, width=100)
             match_list.heading("#0", text="", anchor=W)
             match_list.heading("MID", text="MID", anchor=W)
             match_list.heading("Won", text="Won", anchor='center')
@@ -99,48 +143,83 @@ class MainApp:
             match_list.heading("Date", text="Date", anchor='center')
 
         def graph_frame():
-            g_frame = LabelFrame(profile, text="Graphs", font="calibri 12 ",bg="#D3D3D3")
             g_frame.pack(expand="yes", padx=20, side='bottom')
 
             gid_label = Label(g_frame, text="GID", font="calibri 12 ",bg="#D3D3D3")
             gid_label.grid(row=0, column=0, padx=10, pady=10)
-            gid_entry = Entry(g_frame)
             gid_entry.grid(row=0, column=1, padx=10, pady=10)
             mid_label = Label(g_frame, text="MID", font="calibri 12 ",bg="#D3D3D3")
             mid_label.grid(row=1, column=0, padx=10, pady=10)
-            mid_entry = Entry(g_frame)
             mid_entry.grid(row=1, column=1, padx=10, pady=10)
             
-            n=StringVar()
-            mid_graph = ttk.Combobox(g_frame, width = 30, textvariable= n)
-            mid_graph['values'] = ('Win/Loss Overtime', 'Win Amount')
+            mid_graph['values'] = ('Win/Loss Overtime', 'Won Amount', 'Lost Amount')
             mid_graph.grid(row=0, column=2, padx=10, pady=10)
             mid_graph.current()
 
-            plot = Button(g_frame, text="Plot", width = 10,font="calibri 12 ",bg="#D3D3D3")
+            plot = Button(g_frame, text="Plot", width = 10,font="calibri 12 ",bg="#D3D3D3", command=lambda: show_graph(mid_graph.get()))
             plot.grid(row=1, column=2, padx=10, pady=10)
 
-            
-        profile = Tk()
-        profile.title("Player Profile")
-        profile.configure(bg="#D3D3D3")
-        app_width = 800
-        app_height = 500
-        screen_width = profile.winfo_screenwidth()
-        screen_height = profile.winfo_screenheight()
-        x = (screen_width / 2) - (app_width / 2)
-        y = (screen_height / 2 ) - (app_height / 2)
-        profile.geometry(f'{app_width}x{app_height}+{int(x)}+{int(y)}')
+        def show_graph(graph_type):
+            if graph_type == "Win/Loss Overtime":                
+                amount_won = [record[3] for record in records]
+                amount_lost = [record[4] for record in records]
+                date = [record[2] for record in records]
+                self.plotter.twoLinePlot(date, amount_won, date, amount_lost, "Date", "Amount", "Amount Won/Losses over Time", True)
+            elif graph_type == "Won Amount":
+                amount_won = [0]*8
+                for record in records:
+                    i = int(record[1][0:3]) - 1
+                    amount_won[i] = amount_won[i] + record[3]
+                labels = ["Black Jack", "Craps", "Roullete", "Slots", "Keno","Poker","Baccarat","Big Six"]
+                self.plotter.pieChart(amount_won, labels, "Amount Won in Each Game", explode=True)
+            elif graph_type == "Lost Amount":
+                amount_lost = [0]*8
+                for record in records:
+                    i = int(record[1][0:3]) - 1
+                    amount_lost[i] = amount_lost[i] + record[4]
+                labels = ["Black Jack", "Craps", "Roullete", "Slots", "Keno","Poker","Baccarat","Big Six"]
+                self.plotter.pieChart(amount_lost, labels, "Amount Lost in Each Game", explode=True)
+             
+            else:
+                pass
 
+        
+        
+        player = PlayerData(id)
+        finances = player.get_finance()
+        records = player.get_all_matches()
+        records = sorted(records, key=lambda x: x[2]) # sorted by date
+        player_skills = PlayerSkill(id)
+
+        ### Create widgets
+        # Profile frame
+        profile = Tk()
+
+        # Match table
+        style = ttk.Style()
+        list_frame = Frame(profile)
+        list_scroll = Scrollbar(list_frame)
+        match_list = ttk.Treeview(list_frame, yscrollcommand=list_scroll.set, selectmode="extended")
+        
+        match_list.bind("<ButtonRelease-1>", select_record)
+
+        # Graph Frame
+        g_frame = LabelFrame(profile, text="Graphs", font="calibri 12 ",bg="#D3D3D3")
+        gid_entry = Entry(g_frame)
+        mid_entry = Entry(g_frame)
+        n=StringVar()
+        mid_graph = ttk.Combobox(g_frame, width = 30, textvariable= n)
+
+        # Configure widgets
+        main_window()
         profile_frame()
         match_table()
         graph_frame()
 
-
+        
     def player_page(self):
         self.main.withdraw()
-
-        
+  
         def populate_player_table(id = None):
             # Empty table 
             for player in player_list.get_children():
@@ -155,9 +234,7 @@ class MainApp:
                 for i, record in enumerate(new_records):
                     player_list.insert(parent='', index='end', iid=i, text="", values=(record[2], record[1], record[0])) 
         
-        def select_record():
-            selected = player_list.focus()
-            player_info = player_list.item(selected, 'values')
+        
 
         def go_back():
             self.main.deiconify()
@@ -288,11 +365,16 @@ class MainApp:
 
             update = Button(button_frame, text="Update Player", font="calibri 12 ",command=update_player)
             update.grid(row=0, column=0, padx=10, pady=10)
-            open = Button(button_frame, text="Open Player Profile", font="calibri 12 ",command=self.player_profile(player_info))
+            open = Button(button_frame, text="Open Player Profile", font="calibri 12 ",command=lambda: self.player_profile(player_info))
             open.grid(row=0, column=1, padx=10, pady=10)
             reset = Button(button_frame, text="Reset List", font="calibri 12 ", command=reset_List)
             reset.grid(row=0, column=2,  padx=10, pady=10 )
         
+        def select_record(event):
+            nonlocal player_info
+            selected = player_list.focus()
+            player_info = player_list.item(selected, 'values')
+
         player = Tk()
         player.title("Players")
         player.configure(bg="#D3D3D3")
@@ -315,16 +397,45 @@ class MainApp:
         search_player_frame()
         c_menu = Menu(player)
         cascade_menu(c_menu)
-        command_frame()
-
         player_info = [0]*3 # array with 3 elements
         player_list.bind("<ButtonRelease-1>", select_record)
+        command_frame()
 
+        
     def games_page(self):
-        self.main.withdraw()
+        pass
+            
 
     def revenue_page(self):
-        pass
+        match_data = self.sql.select_from("MatchData", "*")
+        records_by_date = sorted(match_data, key=lambda x: x[2])
+
+        profit = []
+        date = []
+        day_profit = 0        
+
+        for i, record in enumerate(records_by_date, start=0):
+            day_profit = day_profit + record[3] - record[4]
+            current_day = record[2]
+            if i == len(records_by_date)-1:
+                next_day = current_day
+            else:
+                next_day = records_by_date[i+1][2]
+
+            if current_day != next_day:
+                profit.append(day_profit)
+                date.append(current_day)
+                day_profit = 0
+            
+        self.plotter.linePlot(date, profit, "Date", "Profit", "Profit for Each Day", 1)
+
+        game_data = self.sql.select_from("GameMain", "*")
+        labels = [record[1] for record in game_data]
+        won = [record[2] for record in game_data]   # Player won here so casino lost
+        lost = [record[3] for record in game_data]  # and vice versa
+        self.plotter.pieChart(lost, labels, "Amount Earned in Each Game", explode=True)
+        self.plotter.pieChart(won, labels, "Amount Lost in Each Game", explode=True)
+
    
     def main_menu(self) -> None:
         app_width = 500

@@ -1,7 +1,7 @@
 import random
 def slots():
     attempts = 0
-    while attempts < 5:
+    while attempts < 50:
         slot1 = random.randint(1,10)
         slot2 = random.randint(1,10)
         slot3 = random.randint(1,10)
@@ -33,3 +33,5 @@ def slots():
             print("Better Luck Next Time, Try Again!")
             print('---------------------')
         attempts += 1
+
+slots()

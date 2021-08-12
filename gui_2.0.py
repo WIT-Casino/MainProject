@@ -6,6 +6,7 @@ from CasinoBackEnd.playerdata import PlayerData
 from CasinoBackEnd.admin import Admin
 from CasinoBackEnd.playerskill import PlayerSkill
 from CasinoBackEnd.plotter import Plotter
+from CasinoBackEnd.simulation import Simulation
 
 
 class MainApp:
@@ -159,6 +160,9 @@ class MainApp:
             plot = Button(g_frame, text="Plot", width = 10,font="calibri 12 ",bg="#D3D3D3", command=lambda: show_graph(mid_graph.get()))
             plot.grid(row=1, column=2, padx=10, pady=10)
 
+            simul = Button(g_frame, text="Simulation", font="calibri 12", command=lambda: show_simulation(100))
+            simul.grid(row=1, column=3,  padx=10, pady=10)
+
         def show_graph(graph_type):
             if graph_type == "Win/Loss Overtime":                
                 amount_won = [record[3] for record in records]
@@ -183,8 +187,17 @@ class MainApp:
             else:
                 pass
 
-        
-        
+        def show_simulation(num_games):
+            # nonlocal player_skills
+            simul = Simulation()
+            player_skill_data = []
+            player_skill_data.append(player_skills.get_skill())
+            player_skill_data.append(player_skills.get_luck())
+            player_skill_data.append(player_skills.get_cheat())
+
+            simul.simOnePlayerNGames(player_skill_data, 0.25, num_games)
+
+
         player = PlayerData(id)
         finances = player.get_finance()
         records = player.get_all_matches()
@@ -369,6 +382,7 @@ class MainApp:
             open.grid(row=0, column=1, padx=10, pady=10)
             reset = Button(button_frame, text="Reset List", font="calibri 12 ", command=reset_List)
             reset.grid(row=0, column=2,  padx=10, pady=10 )
+            
         
         def select_record(event):
             nonlocal player_info

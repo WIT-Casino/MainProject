@@ -33,3 +33,5 @@ def Keno():
         print('No Matches')
     else:
         print('Matches are:',intersection(picks,keno))
+
+Keno()

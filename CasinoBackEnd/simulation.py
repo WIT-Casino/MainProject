@@ -1,6 +1,14 @@
 import random
-from plotter import Plotter
+
 import time
+
+try:
+    from plotter import Plotter
+    
+except ModuleNotFoundError:
+    import sys
+    sys.path.append(".")
+    from CasinoBackEnd.plotter import Plotter
 
 class Simulation:
     def __init__ (self) : 

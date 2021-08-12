@@ -20,7 +20,7 @@ def Roulette():
     print('____________________________________________________________')
     ranBet= random.choice(bet)
     winnings = ranBet*2
-    winningsG = ranBet*35
+   # winningsG = ranBet*35
     betR = ranBet
     if player==1:
         if spin in red:

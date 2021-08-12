@@ -24,33 +24,33 @@ def Roulette():
     betR = ranBet
     if player==1:
         if spin in red:
-            return winnings
+            return 1
         else:
-            return betR
+            return 0
             
     elif player==2:
         if spin in black:
-            return winnings
+            return 1
         else:
-            return betR
+            return 0
     
     elif player==3:
         if spin == green:
-            return winningsG
+            return 1
         else:
-            return betR
+            return 0
             
     elif player==4:
         if spin in odd:
-            return winnings
+            return 1
         else:
-            return betR
+            return 0
             
     elif player==5:
         if spin in even:
-            return winnings
+            return 1
         else :
-            return betR
+            return 0
     print('__________________________________________________________')    
 
 Roulette()

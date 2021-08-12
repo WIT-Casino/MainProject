@@ -1,6 +1,27 @@
 import random
-from plotter import Plotter
 import time
+
+try:
+    from plotter import Plotter
+    from blackjack import blackjack
+    from Keno import Keno
+    from Roulette_simulated import Roulette
+    from slotmachine import slots
+    from craps import craps
+    from gamedata import GamePrefixID
+        
+except ModuleNotFoundError:
+    import sys
+    sys.path.append(".")
+    from CasinoBackEnd.plotter import Plotter
+    from Games.blackjack import blackjack
+    from Games.Keno import Keno
+    from Games.Roulette_simulated import Roulette
+    from Games.slotmachine import slots
+    from Games.craps import craps
+    from CasinoBackEnd.gamedata import GamePrefixID
+
+
 
 class Simulation:
     def __init__ (self) : 
@@ -64,9 +85,70 @@ class Simulation:
         plot.twoLinePlot(iterList, winningList, iterList, lossesList, "Game Number","Total ($)","Win Loss Graph",1)
 
 
-# def main():
-#     sim  = Simulation()
-#     sim.simOnePlayerNGames([10,10,10],.25,100)
+    def simRealGame(self, gameType):
+        random.seed(time.time())
 
-# if __name__ == '__main__':
-#     main()
+        earningList = list([])
+        earningList.clear()
+        winningList = list([])
+        winningList.clear()        
+        lossesList = list([])
+        lossesList.clear()
+        numGameList = list([])
+        numGameList.clear()
+        #monthList = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]
+        monthList = list([])
+        
+
+        
+        for i in range(12):
+            totalWin = 0
+            totalLoss = 0
+            totalEarnings = 0
+            gameOutCome = 0
+            numberOfGames = random.randint(50,100)
+            for j in range(numberOfGames):
+                bet = 1 + random.random()*24
+                if gameType == GamePrefixID.BlackJack:
+                    gameOutCome = blackjack()
+                elif gameType == GamePrefixID.Craps:
+                    gameOutCome = craps()
+                elif gameType == GamePrefixID.Roulette:
+                    gameOutCome = Roullette()
+                elif gameType == GamePrefixID.Slots:
+                    gameOutCome = slots()
+                elif gameType == GamePrefixID.Keno:
+                    gameOutCome = Keno()
+        
+                if gameOutCome == 1:
+                    totalWin = totalWin + bet
+                    #winningList.append(totalWin)
+                    totalEarnings = totalEarnings + bet
+                    #earningList.append(totalEarnings)
+                    #lossesList.append(totalLoss)
+                else:
+                    totalLoss = totalLoss + bet
+                    #lossesList.append(totalLoss)
+                    #winningList.append(totalWin)
+                    totalEarnings = totalEarnings - bet
+                    #earningList.append(totalEarnings)
+            
+            earningList.append(totalEarnings)
+            lossesList.append(totalLoss)
+            winningList.append(totalWin)
+            numGameList.append(numberOfGames)
+            monthList.append(i)
+
+        plot = Plotter()
+
+        plot.barChart(monthList, numGameList, "Month","Number of Games Player","Popularity")
+        #plot.linePlot(monthList, winningList, "Game Number","Total Earnings ($)","Earnings",1)
+        plot.twoLinePlot(monthList, winningList, monthList, lossesList, "Game Number","Total ($)","Win Loss Graph",1)
+
+"""
+def main():
+    sim  = Simulation()
+    sim.simRealGame(3)
+
+if __name__ == '__main__':
+    main()"""

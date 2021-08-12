@@ -1,3 +1,4 @@
+import random
 def Keno():
 
     board = (range(1,80))

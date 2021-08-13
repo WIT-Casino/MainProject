@@ -1,38 +1,24 @@
 import random
-<<<<<<< HEAD
-=======
-
->>>>>>> Hank
 import time
+import sys
 
 try:
-    from plotter import Plotter
-<<<<<<< HEAD
-    from blackjack import blackjack
-    from Keno import Keno
-    from Roulette_simulated import Roulette
-    from slotmachine import slots
-    from craps import craps
-    from gamedata import GamePrefixID
-        
-=======
-    
->>>>>>> Hank
-except ModuleNotFoundError:
-    import sys
     sys.path.append(".")
     from CasinoBackEnd.plotter import Plotter
-<<<<<<< HEAD
-    from Games.blackjack import blackjack
-    from Games.Keno import Keno
-    from Games.Roulette_simulated import Roulette
-    from Games.slotmachine import slots
-    from Games.craps import craps
-    from CasinoBackEnd.gamedata import GamePrefixID
+    
+        
+except ModuleNotFoundError:
+    sys.path.append("..")
+    from CasinoBackEnd.plotter import Plotter
+
+from Games.blackjack import blackjack
+from Games.Keno import Keno
+from Games.Roulette_sim import Roulette
+from Games.slotmachine import slots
+from Games.craps import craps
+from CasinoBackEnd.gamedata import GamePrefixID
 
 
-=======
->>>>>>> Hank
 
 class Simulation:
     def __init__ (self) : 
@@ -94,6 +80,7 @@ class Simulation:
 
         plot.linePlot(iterList, earningList, "Game Number","Total Earnings ($)","Earnings",1)
         plot.twoLinePlot(iterList, winningList, iterList, lossesList, "Game Number","Total ($)","Win Loss Graph",1)
+        plot.show_graphs()
 
 
     def simRealGame(self, gameType):
@@ -125,7 +112,7 @@ class Simulation:
                 elif gameType == GamePrefixID.Craps:
                     gameOutCome = craps()
                 elif gameType == GamePrefixID.Roulette:
-                    gameOutCome = Roullette()
+                    gameOutCome = Roulette()
                 elif gameType == GamePrefixID.Slots:
                     gameOutCome = slots()
                 elif gameType == GamePrefixID.Keno:
@@ -155,11 +142,12 @@ class Simulation:
         plot.barChart(monthList, numGameList, "Month","Number of Games Player","Popularity")
         #plot.linePlot(monthList, winningList, "Game Number","Total Earnings ($)","Earnings",1)
         plot.twoLinePlot(monthList, winningList, monthList, lossesList, "Game Number","Total ($)","Win Loss Graph",1)
+        plot.show_graphs()
 
-"""
-def main():
-    sim  = Simulation()
-    sim.simRealGame(3)
 
-if __name__ == '__main__':
-    main()"""
+# def main():
+#     sim  = Simulation()
+#     sim.simRealGame(3)
+
+# if __name__ == '__main__':
+#     main()

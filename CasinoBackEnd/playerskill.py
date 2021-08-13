@@ -22,13 +22,13 @@ class PlayerSkill:
 
 
     def get_skill(self):
-        return self._skill
+        return int(self._skill)
 
     def get_luck(self):
-        return self._luck
+        return int(self._luck)
 
     def get_cheat(self):
-        return self._luck
+        return int(self._luck)
 
 
     def update_skill_to_db(self, new_skill):

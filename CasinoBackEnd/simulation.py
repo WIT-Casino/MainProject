@@ -1,8 +1,13 @@
 import random
+<<<<<<< HEAD
+=======
+
+>>>>>>> Hank
 import time
 
 try:
     from plotter import Plotter
+<<<<<<< HEAD
     from blackjack import blackjack
     from Keno import Keno
     from Roulette_simulated import Roulette
@@ -10,10 +15,14 @@ try:
     from craps import craps
     from gamedata import GamePrefixID
         
+=======
+    
+>>>>>>> Hank
 except ModuleNotFoundError:
     import sys
     sys.path.append(".")
     from CasinoBackEnd.plotter import Plotter
+<<<<<<< HEAD
     from Games.blackjack import blackjack
     from Games.Keno import Keno
     from Games.Roulette_simulated import Roulette
@@ -22,6 +31,8 @@ except ModuleNotFoundError:
     from CasinoBackEnd.gamedata import GamePrefixID
 
 
+=======
+>>>>>>> Hank
 
 class Simulation:
     def __init__ (self) : 

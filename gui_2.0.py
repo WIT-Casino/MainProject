@@ -1,11 +1,12 @@
 from tkinter import *
 from tkinter import ttk
-from typing import Tuple
 from CasinoBackEnd.SQL_Database import SQL_Databases
 from CasinoBackEnd.playerdata import PlayerData
 from CasinoBackEnd.admin import Admin
 from CasinoBackEnd.playerskill import PlayerSkill
 from CasinoBackEnd.plotter import Plotter
+from CasinoBackEnd.simulation import Simulation
+from CasinoBackEnd.gamedata import GamePrefixID
 
 
 class MainApp:
@@ -159,6 +160,9 @@ class MainApp:
             plot = Button(g_frame, text="Plot", width = 10,font="calibri 12 ",bg="#D3D3D3", command=lambda: show_graph(mid_graph.get()))
             plot.grid(row=1, column=2, padx=10, pady=10)
 
+            simul = Button(g_frame, text="Simulation", font="calibri 12", command=lambda: show_simulation(100))
+            simul.grid(row=1, column=3,  padx=10, pady=10)
+
         def show_graph(graph_type):
             if graph_type == "Win/Loss Overtime":                
                 amount_won = [record[3] for record in records]
@@ -183,8 +187,17 @@ class MainApp:
             else:
                 pass
 
-        
-        
+        def show_simulation(num_games):
+            # nonlocal player_skills
+            simul = Simulation()
+            player_skill_data = []
+            player_skill_data.append(player_skills.get_skill())
+            player_skill_data.append(player_skills.get_luck())
+            player_skill_data.append(player_skills.get_cheat())
+
+            simul.simOnePlayerNGames(player_skill_data, 0.25, num_games)
+
+
         player = PlayerData(id)
         finances = player.get_finance()
         records = player.get_all_matches()
@@ -369,6 +382,7 @@ class MainApp:
             open.grid(row=0, column=1, padx=10, pady=10)
             reset = Button(button_frame, text="Reset List", font="calibri 12 ", command=reset_List)
             reset.grid(row=0, column=2,  padx=10, pady=10 )
+            
         
         def select_record(event):
             nonlocal player_info
@@ -403,7 +417,75 @@ class MainApp:
 
         
     def games_page(self):
-        pass
+        self.main.withdraw()
+
+        def go_back():
+            self.main.deiconify()
+            games.withdraw()
+
+        def graph_pg(gameID):
+            
+            def go_back():
+                gameType.withdraw()
+
+            def pop_graph():
+                pass
+
+            def rev_graph():
+                pass
+
+            gameType = Tk()
+            gameType.title(gameID.name)
+            gameType.configure(bg="#D3D3D3")
+            app_width = 400
+            app_height = 200
+            screen_width = gameType.winfo_screenwidth()
+            screen_height = gameType.winfo_screenheight()
+            x = (screen_width / 2) - (app_width / 2)
+            y = (screen_height / 2 ) - (app_height / 2)
+            gameType.geometry(f'{app_width}x{app_height}+{int(x)}+{int(y)}')\
+            
+            gph_frame = LabelFrame(gameType, text="Graphs", font="calibri 12 ",bg="#D3D3D3")
+            gph_frame.pack(pady=10)
+
+            pop_btn = Button(gph_frame, text="Popularity Graph", font="calibri 12 ", bg="#D3D3D3", command = pop_graph)
+            rev_btn = Button(gph_frame, text="Revenue Graph", font="calibri 12 ", bg="#D3D3D3", command = rev_graph)
+            pop_btn.grid(row=0, column=0, padx=20, pady=20)
+            rev_btn.grid(row=0, column=1, padx=20, pady=20)
+
+            exit_btn = Button(gameType, text = 'Exit', font="calibri 12 ", width=7, command = go_back)
+            exit_btn.pack(pady=10, side='bottom')
+
+        games = Tk()
+        games.title("Games")
+        games.configure(bg="#D3D3D3")
+        app_width = 400
+        app_height = 300
+        screen_width = games.winfo_screenwidth()
+        screen_height = games.winfo_screenheight()
+        x = (screen_width / 2) - (app_width / 2)
+        y = (screen_height / 2 ) - (app_height / 2)
+        games.geometry(f'{app_width}x{app_height}+{int(x)}+{int(y)}')
+
+        game_frame = LabelFrame(games, text="Games", font="calibri 12 ",bg="#D3D3D3")
+        game_frame.pack(pady=10)
+
+        blackjack_btn = Button(game_frame, text = 'Blackjack', font="calibri 12 ", bg="#D3D3D3", command=lambda: graph_pg(GamePrefixID.BlackJack))
+        keno_btn = Button(game_frame, text = 'Keno', font="calibri 12 ", bg="#D3D3D3", command=lambda: graph_pg(GamePrefixID.Keno))
+        slots_btn = Button(game_frame, text = 'Slots', font="calibri 12 ", bg="#D3D3D3", command=lambda: graph_pg(GamePrefixID.Slots))
+        roulette_btn = Button(game_frame, text = 'Roulette', font="calibri 12 ", bg="#D3D3D3", command=lambda: graph_pg(GamePrefixID.Roulette))
+        craps_btn = Button(game_frame, text = 'Craps', font="calibri 12 ", bg="#D3D3D3", command=lambda: graph_pg(GamePrefixID.Craps))
+
+        blackjack_btn.grid(row=0, column=0, padx=20, pady=20)
+        keno_btn.grid(row=0, column=1, padx=20, pady=20)
+        slots_btn.grid(row=0, column=2, padx=20, pady=20)
+        roulette_btn.grid(row=1, column=0, padx=20, pady=20)
+        craps_btn.grid(row=1, column=1, padx=20, pady=20)
+
+
+
+        exit_btn = Button(games, text = 'Exit', font="calibri 12 ", width=7, command = go_back)
+        exit_btn.pack(pady=10, side='bottom')
             
 
     def revenue_page(self):

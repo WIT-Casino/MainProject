@@ -5,50 +5,52 @@ import numpy as np
 class Plotter:
     
     def __init__ (self) : 
-        self.num_figure = 0
-        self.plot = []
+        self.graph = []
 
     def __del__ (self) :
         pass
-    
-    def show_chart(self):
-        self.num_figure = self.num_figure + 1
-        self.plot.append(plt.figure(self.num_figure))
 
-        self.plot[self.num_figure-1].show()
+    def show_graphs(self):
+        for graph in self.graph[1:]:       # the first index doesn't have graph
+            graph.show()
+
+        self.graph.clear()
 
     def linePlot(self, xVals, yVals, xLabel, yLabel, newTitle, gridEnable):
         """Creates a line graph of xVals vs yVals"""
         
-        fig, ax = plt.subplots()
+        fig = plt.figure(len(self.graph))
+        _, ax = plt.subplots()
         ax.plot(xVals, yVals)
         ax.set(xlabel = xLabel, ylabel = yLabel, title = newTitle)
         if gridEnable == 1:
             ax.grid()  
 
-        self.show_chart()
+        self.graph.append(fig)
         
 
     def twoLinePlot(self, xValsOne, yValsOne, xValsTwo, yValsTwo, xLabel, yLabel, newTitle, gridEnable):
         """Creates a line graph of xValsOne vs yValsOne and xValsTwo vs yValsTwo on same plot"""
         
-        fig, ax = plt.subplots()
+        fig = plt.figure(len(self.graph))
+        _, ax = plt.subplots()
         ax.plot(xValsOne, yValsOne)
         ax.plot(xValsTwo, yValsTwo)
         ax.set(xlabel = xLabel, ylabel = yLabel, title = newTitle)
         if gridEnable == 1:
             ax.grid()  
 
-        self.show_chart() 
+        self.graph.append(fig) 
 
     def barChart(self, xVals, yVals, xLabel, yLabel, newTitle):
         """Creates a bar graph using x and y values"""
 
-        fig, ax = plt.subplots()
+        fig = plt.figure(len(self.graph))
+        _, ax = plt.subplots()
         ax.bar(xVals,yVals)
         ax.set(xlabel = xLabel, ylabel = yLabel, title = newTitle)
 
-        self.show_chart()
+        self.graph.append(fig)
 
     def pieChart(self, data, newLabels, newTitle, explode=False):
         """Creates a pie chart of data with labels newLabes and title newTitle
@@ -64,7 +66,11 @@ class Plotter:
         else:
             explode = explode
         
-        fig, ax = plt.subplots()
+        fig = plt.figure(len(self.graph))
+        _, ax = plt.subplots()
         ax.pie(data, labels = newLabels, explode = explode)
         ax.set(title = newTitle)
-        self.show_chart()
+        self.graph.append(fig)
+
+
+

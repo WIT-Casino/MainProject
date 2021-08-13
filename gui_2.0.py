@@ -56,7 +56,7 @@ class MainApp:
             profile.title("Player Profile")
             profile.configure(bg="#D3D3D3")
             app_width = 1050
-            app_height = 500
+            app_height = 700
             screen_width = profile.winfo_screenwidth()
             screen_height = profile.winfo_screenheight()
             x = (screen_width / 2) - (app_width / 2)
@@ -96,12 +96,6 @@ class MainApp:
             ls_entry = Entry(data_frame)
             ls_entry.insert(0,finances[2])
             ls_entry.grid(row=1, column=3, padx=10, pady=10)
-
-            b_label = Label(data_frame, text="Balance", font="calibri 12 ",bg="#D3D3D3")
-            b_label.grid(row=1, column=4, padx=10, pady=10)
-            b_entry = Entry(data_frame)
-            b_entry.insert(0,finances[0])
-            b_entry.grid(row=1, column=5, padx=10, pady=10)
 
             sk_label = Label(data_frame, text="Skill Rating(0-10)", font="calibri 12 ",bg="#D3D3D3")
             sk_label.grid(row=2, column=0, padx=10, pady=10)
@@ -235,8 +229,6 @@ class MainApp:
                 for i, record in enumerate(new_records):
                     player_list.insert(parent='', index='end', iid=i, text="", values=(record[2], record[1], record[0])) 
         
-        
-
         def go_back():
             self.main.deiconify()
             player.withdraw()
@@ -355,17 +347,22 @@ class MainApp:
 
         def command_frame():
 
-            def update_player():
-                pass
-            
-            def reset_List():
-                pass
+            def reset_List(id = None):
+                for player in player_list.get_children():
+                    player_list.delete(player)
+                
+                records = self.admin.get_all_players_basic_info()
+                if id == None:
+                    for i, record in enumerate(records):
+                        player_list.insert(parent='', index='end', iid=i, text="", values=(record[2], record[1], record[0]))
+                else:
+                    new_records = [r for r in records if r[0] == id]
+                    for i, record in enumerate(new_records):
+                        player_list.insert(parent='', index='end', iid=i, text="", values=(record[2], record[1], record[0])) 
             
             button_frame = LabelFrame(player, text="Commands", font="calibri 12 ",bg="#D3D3D3")
             button_frame.pack(fill="x", expand="yes", padx=20)
 
-            update = Button(button_frame, text="Update Player", font="calibri 12 ",command=update_player)
-            update.grid(row=0, column=0, padx=10, pady=10)
             open = Button(button_frame, text="Open Player Profile", font="calibri 12 ",command=lambda: self.player_profile(player_info))
             open.grid(row=0, column=1, padx=10, pady=10)
             reset = Button(button_frame, text="Reset List", font="calibri 12 ", command=reset_List)
@@ -411,9 +408,11 @@ class MainApp:
             games.withdraw()
 
         def graph_pg(gameID):
+            games.withdraw()
             
             def go_back():
                 gameType.withdraw()
+                games.deiconify()
 
             def pop_graph():
                 pass

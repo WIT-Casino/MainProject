@@ -34,4 +34,3 @@ def slots():
             print('---------------------')
         attempts += 1
 
-slots()

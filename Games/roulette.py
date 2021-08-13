@@ -80,4 +80,3 @@ def Roulette():
     else:
         print('invalid bet')
 
-Roulette()

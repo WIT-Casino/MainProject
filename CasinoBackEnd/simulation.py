@@ -145,9 +145,9 @@ class Simulation:
         plot.show_graphs()
 
 
-# def main():
-#     sim  = Simulation()
-#     sim.simRealGame(3)
+def main():
+    sim  = Simulation()
+    sim.simRealGame(3)
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()

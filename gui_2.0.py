@@ -186,6 +186,7 @@ class MainApp:
              
             else:
                 pass
+            self.plotter.show_graphs()
 
         def show_simulation(num_games):
             # nonlocal player_skills
@@ -517,7 +518,7 @@ class MainApp:
         lost = [record[3] for record in game_data]  # and vice versa
         self.plotter.pieChart(lost, labels, "Amount Earned in Each Game", explode=True)
         self.plotter.pieChart(won, labels, "Amount Lost in Each Game", explode=True)
-
+        self.plotter.show_graphs()
    
     def main_menu(self) -> None:
         app_width = 500

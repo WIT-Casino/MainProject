@@ -146,13 +146,14 @@ def blackjack():
         print("Current player hand value: " , playercard, "\n -----------------")
 
     if playercard > 21 and dealercard < 21:
-        print("Player Busted, Dealer wins!")
+        return 0
     elif dealercard > 21 and playercard < 21:
-        print("Dealer Busted, Player wins!")
+        return 1
     elif dealercard == playercard:
-        print("Draw!")
+        blackjack()
     elif playercard > dealercard:
-        print("Player wins!")
+        return 1
     elif dealercard > playercard:
-        print("Dealer Wins!")
+        return 0
+
 

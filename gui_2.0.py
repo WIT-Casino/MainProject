@@ -9,6 +9,7 @@ from CasinoBackEnd.simulation import Simulation
 from CasinoBackEnd.gamedata import GamePrefixID
 
 
+
 class MainApp:
     def __init__(self) -> None:
         pass
@@ -154,7 +155,7 @@ class MainApp:
             plot = Button(g_frame, text="Plot", width = 10,font="calibri 12 ",bg="#D3D3D3", command=lambda: show_graph(mid_graph.get()))
             plot.grid(row=1, column=2, padx=10, pady=10)
 
-            simul = Button(g_frame, text="Simulation", font="calibri 12", command=lambda: show_simulation(100))
+            simul = Button(g_frame, text="Simulation", font="calibri 12", bg="#D3D3D3",command=lambda: show_simulation(100))
             simul.grid(row=1, column=3,  padx=10, pady=10)
 
         def show_graph(graph_type):
@@ -422,39 +423,7 @@ class MainApp:
             games.withdraw()
 
         def graph_pg(gameID):
-            games.withdraw()
-            
-            def go_back():
-                gameType.withdraw()
-                games.deiconify()
-
-            def pop_graph():
-                pass
-
-            def rev_graph():
-                pass
-
-            gameType = Tk()
-            gameType.title(gameID.name)
-            gameType.configure(bg="#D3D3D3")
-            app_width = 400
-            app_height = 200
-            screen_width = gameType.winfo_screenwidth()
-            screen_height = gameType.winfo_screenheight()
-            x = (screen_width / 2) - (app_width / 2)
-            y = (screen_height / 2 ) - (app_height / 2)
-            gameType.geometry(f'{app_width}x{app_height}+{int(x)}+{int(y)}')\
-            
-            gph_frame = LabelFrame(gameType, text="Graphs", font="calibri 12 ",bg="#D3D3D3")
-            gph_frame.pack(pady=10)
-
-            pop_btn = Button(gph_frame, text="Popularity Graph", font="calibri 12 ", bg="#D3D3D3", command = pop_graph)
-            rev_btn = Button(gph_frame, text="Revenue Graph", font="calibri 12 ", bg="#D3D3D3", command = rev_graph)
-            pop_btn.grid(row=0, column=0, padx=20, pady=20)
-            rev_btn.grid(row=0, column=1, padx=20, pady=20)
-
-            exit_btn = Button(gameType, text = 'Exit', font="calibri 12 ", width=7, command = go_back)
-            exit_btn.pack(pady=10, side='bottom')
+            Simulation().simRealGame(gameID)
 
         games = Tk()
         games.title("Games")

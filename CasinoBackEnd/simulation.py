@@ -12,9 +12,8 @@ except ModuleNotFoundError:
     from CasinoBackEnd.plotter import Plotter
 
 from Games.blackjack import blackjack
-from Games.Keno import Keno
+from Games.Keno_sim import Keno
 from Games.Roulette_sim import Roulette
-from Games.slotmachine import slots
 from Games.craps import craps
 from CasinoBackEnd.gamedata import GamePrefixID
 
@@ -78,8 +77,8 @@ class Simulation:
 
         plot = Plotter()
 
-        plot.linePlot(iterList, earningList, "Game Number","Total Earnings ($)","Earnings",1)
-        plot.twoLinePlot(iterList, winningList, iterList, lossesList, "Game Number","Total ($)","Win Loss Graph",1)
+        plot.linePlot(iterList, earningList, "Number of Games","Total Earnings ($)","Earnings",1)
+        plot.twoLinePlot(iterList, winningList, iterList, lossesList, "Number of Games","Total ($)","Won/Loss Graph",1)
         plot.show_graphs()
 
 
@@ -113,8 +112,6 @@ class Simulation:
                     gameOutCome = craps()
                 elif gameType == GamePrefixID.Roulette:
                     gameOutCome = Roulette()
-                elif gameType == GamePrefixID.Slots:
-                    gameOutCome = slots()
                 elif gameType == GamePrefixID.Keno:
                     gameOutCome = Keno()
         
@@ -139,15 +136,15 @@ class Simulation:
 
         plot = Plotter()
 
-        plot.barChart(monthList, numGameList, "Month","Number of Games Player","Popularity")
+        plot.barChart(monthList, numGameList, "Month","Number of Games","Popularity")
         #plot.linePlot(monthList, winningList, "Game Number","Total Earnings ($)","Earnings",1)
-        plot.twoLinePlot(monthList, winningList, monthList, lossesList, "Game Number","Total ($)","Win Loss Graph",1)
+        plot.twoLinePlot(monthList, winningList, monthList, lossesList, "Months","Total ($)","Win Loss Graph",1)
         plot.show_graphs()
 
 
-def main():
-    sim  = Simulation()
-    sim.simRealGame(3)
+# def main():
+#     sim  = Simulation()
+#     sim.simRealGame(3)
 
-if __name__ == '__main__':
-    main()
+# if __name__ == '__main__':
+#     main()

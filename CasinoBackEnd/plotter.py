@@ -22,6 +22,8 @@ class Plotter:
         ax.set(xlabel = xLabel, ylabel = yLabel, title = newTitle)
         if gridEnable == 1:
             ax.grid()  
+        plt.ticklabel_format(style = 'plain')
+        
 
         
 
@@ -29,12 +31,13 @@ class Plotter:
         """Creates a line graph of xValsOne vs yValsOne and xValsTwo vs yValsTwo on same plot"""
         
         _, ax = plt.subplots()
-        ax.plot(xValsOne, yValsOne)
-        ax.plot(xValsTwo, yValsTwo)
+        ax.plot(xValsOne, yValsOne, label="Won Amount" )
+        ax.plot(xValsTwo, yValsTwo, label="Loss Amount")
         ax.set(xlabel = xLabel, ylabel = yLabel, title = newTitle)
         if gridEnable == 1:
             ax.grid()  
-
+        ax.legend(loc="upper left")
+        plt.ticklabel_format(style = 'plain')
          
 
     def barChart(self, xVals, yVals, xLabel, yLabel, newTitle):
@@ -59,9 +62,11 @@ class Plotter:
             explode = [0.1]*len(data)
         else:
             explode = explode
-        
+        def func(pct, allvalues):
+            absolute = int(pct / 100.*np.sum(allvalues))
+            return "{:.1f}%\n${:d} ".format(pct, absolute)
         _, ax = plt.subplots()
-        ax.pie(data, labels = newLabels, explode = explode)
+        ax.pie(data, labels = newLabels, explode = explode, autopct = lambda pct: func(pct, data))
         ax.set(title = newTitle)
         
 

@@ -5,9 +5,9 @@ def Keno():
     sim = random.sample(board,10)
     keno = random.sample(board,10)
 
-    print('Computer picks: ',keno)
-    print ('Your picks: ', sim)
-    print('__________________________________________________________')
+    #print('Computer picks: ',keno)
+    #print ('Your picks: ', sim)
+    #print('__________________________________________________________')
 
     def intersection(sim, keno):
        return(set(sim).intersection(keno))

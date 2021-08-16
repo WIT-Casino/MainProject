@@ -7,7 +7,7 @@ from CasinoBackEnd.playerskill import PlayerSkill
 from CasinoBackEnd.plotter import Plotter
 from CasinoBackEnd.simulation import Simulation
 from CasinoBackEnd.gamedata import GamePrefixID
-
+from CasinoBackEnd.idrule import IdRule
 
 class MainApp:
     def __init__(self) -> None:
@@ -26,12 +26,14 @@ class MainApp:
 
         self.main.mainloop()
 
+
     def player_profile(self, player_info):
         id = player_info[2]
         if id == 0:
             return None
-            
+  
         def select_record(event):
+            #cursor selection   
                 selected = match_list.focus()
                 mid_entry.delete(0, END)
                 mid_entry.insert(0, match_list.item(selected, 'values')[0])
@@ -43,7 +45,7 @@ class MainApp:
             # Empty table 
             for match in match_list.get_children():
                 match_list.delete(match)
-
+            #Fill table with player matches
             if id == None:
                 for i, record in enumerate(records):
                     match_list.insert(parent='', index='end', iid=i, text="", values=(record[1], record[3], record[4], record[2]))
@@ -53,10 +55,11 @@ class MainApp:
                     match_list.insert(parent='', index='end', iid=i, text="", values=(record[1], record[3], record[4], record[2])) 
         
         def main_window():
+            #Player profile window
             profile.title("Player Profile")
             profile.configure(bg="#D3D3D3")
             app_width = 1050
-            app_height = 500
+            app_height = 700
             screen_width = profile.winfo_screenwidth()
             screen_height = profile.winfo_screenheight()
             x = (screen_width / 2) - (app_width / 2)
@@ -64,57 +67,60 @@ class MainApp:
             profile.geometry(f'{app_width}x{app_height}+{int(x)}+{int(y)}')
 
         def profile_frame():
+            #Frame with player info
             data_frame = LabelFrame(profile, text="Player Information", font="calibri 12 ",bg="#D3D3D3")
             data_frame.pack(fill="x", expand="yes", padx=20)
 
+            #First name
             f_label = Label(data_frame, text="First Name", font="calibri 12 ",bg="#D3D3D3")
             f_label.grid(row=0, column=0, padx=10, pady=10)
             f_entry = Entry(data_frame)
             f_entry.insert(0,player_info[0])
             f_entry.grid(row=0, column=1, padx=10, pady=10)
 
+            #Last name
             l_label = Label(data_frame, text="Last Name", font="calibri 12 ",bg="#D3D3D3")
             l_label.grid(row=0, column=2, padx=10, pady=10)
             l_entry = Entry(data_frame)
             l_entry.insert(0,player_info[1])
             l_entry.grid(row=0, column=3, padx=10, pady=10)
 
+            #ID
             id_label = Label(data_frame, text="ID", font="calibri 12 ",bg="#D3D3D3")
             id_label.grid(row=0, column=4, padx=10, pady=10)
             id_entry = Entry(data_frame)
             id_entry.insert(0,player_info[2])
             id_entry.grid(row=0, column=5, padx=10, pady=10)
 
-            w_label = Label(data_frame, text="Amount Won", font="calibri 12 ",bg="#D3D3D3")
+            #wins amount in $
+            w_label = Label(data_frame, text="Amount Won($)", font="calibri 12 ",bg="#D3D3D3")
             w_label.grid(row=1, column=0, padx=10, pady=10)
             w_entry = Entry(data_frame)
             w_entry.insert(0,finances[1])
             w_entry.grid(row=1, column=1, padx=10, pady=10)
 
-            ls_label = Label(data_frame, text="Amount Lost", font="calibri 12 ",bg="#D3D3D3")
+            #loss amount in $
+            ls_label = Label(data_frame, text="Amount Lost($)", font="calibri 12 ",bg="#D3D3D3")
             ls_label.grid(row=1, column=2, padx=10, pady=10)
             ls_entry = Entry(data_frame)
             ls_entry.insert(0,finances[2])
             ls_entry.grid(row=1, column=3, padx=10, pady=10)
 
-            b_label = Label(data_frame, text="Balance", font="calibri 12 ",bg="#D3D3D3")
-            b_label.grid(row=1, column=4, padx=10, pady=10)
-            b_entry = Entry(data_frame)
-            b_entry.insert(0,finances[0])
-            b_entry.grid(row=1, column=5, padx=10, pady=10)
-
+            #skill rating
             sk_label = Label(data_frame, text="Skill Rating(0-10)", font="calibri 12 ",bg="#D3D3D3")
             sk_label.grid(row=2, column=0, padx=10, pady=10)
             sk_entry = Entry(data_frame)
             sk_entry.insert(0,player_skills.get_skill())
             sk_entry.grid(row=2, column=1, padx=10, pady=10)
 
+            #cheat rating
             ch_label = Label(data_frame, text="Cheat Rating(0-10)", font="calibri 12 ",bg="#D3D3D3")
             ch_label.grid(row=2, column=2, padx=10, pady=10)
             ch_entry = Entry(data_frame)
             ch_entry.insert(0,player_skills.get_cheat())
             ch_entry.grid(row=2, column=3, padx=10, pady=10)
 
+            #luck rating
             lk_label = Label(data_frame, text="Luck Rating(0-10)", font="calibri 12 ",bg="#D3D3D3")
             lk_label.grid(row=2, column=4, padx=10, pady=10)
             lk_entry = Entry(data_frame)
@@ -124,6 +130,7 @@ class MainApp:
             populate_match_table()
 
         def match_table():
+            #Match table format
             style.theme_use('default')
             style.configure("Treeview", background="#D3D3D3", foreground="black", rowheight=25, fieldbackground ="#D3D3D3")
             style.map('Treeview', background=[('selected', "blue")])
@@ -139,31 +146,35 @@ class MainApp:
             match_list.column("Date", anchor=CENTER, width=100)
             match_list.heading("#0", text="", anchor=W)
             match_list.heading("MID", text="MID", anchor=W)
-            match_list.heading("Won", text="Won", anchor='center')
-            match_list.heading("Lost", text="Lost", anchor='center')
+            match_list.heading("Won", text="Won($)", anchor='center')
+            match_list.heading("Lost", text="Lost($)", anchor='center')
             match_list.heading("Date", text="Date", anchor='center')
 
         def graph_frame():
+            #frame for history and simulate frames
             g_frame.pack(expand="yes", padx=20, side='bottom')
+            h_frame.grid(row=0, column=0, padx=5, pady=5)
+            s_frame.grid(row=0, column=1, padx=5, pady=5)
 
-            gid_label = Label(g_frame, text="GID", font="calibri 12 ",bg="#D3D3D3")
+            gid_label = Label(s_frame, text="GID", font="calibri 12 ",bg="#D3D3D3")
             gid_label.grid(row=0, column=0, padx=10, pady=10)
             gid_entry.grid(row=0, column=1, padx=10, pady=10)
-            mid_label = Label(g_frame, text="MID", font="calibri 12 ",bg="#D3D3D3")
+            mid_label = Label(s_frame, text="MID", font="calibri 12 ",bg="#D3D3D3")
             mid_label.grid(row=1, column=0, padx=10, pady=10)
             mid_entry.grid(row=1, column=1, padx=10, pady=10)
             
             mid_graph['values'] = ('Win/Loss Overtime', 'Won Amount', 'Lost Amount')
-            mid_graph.grid(row=0, column=2, padx=10, pady=10)
+            mid_graph.grid(row=0, column=0, padx=10, pady=10)
             mid_graph.current()
 
-            plot = Button(g_frame, text="Plot", width = 10,font="calibri 12 ",bg="#D3D3D3", command=lambda: show_graph(mid_graph.get()))
-            plot.grid(row=1, column=2, padx=10, pady=10)
+            plot = Button(h_frame, text="Plot", width = 10,font="calibri 12 ",bg="#D3D3D3", command=lambda: show_graph(mid_graph.get()))
+            plot.grid(row=0, column=1, padx=10, pady=10)
 
-            simul = Button(g_frame, text="Simulation", font="calibri 12", command=lambda: show_simulation(100))
-            simul.grid(row=1, column=3,  padx=10, pady=10)
+            simul = Button(s_frame, text="Simulate", font="calibri 12", bg="#D3D3D3",command=lambda: show_simulation(100))
+            simul.grid(row=1, column=2,  padx=10, pady=10)
 
         def show_graph(graph_type):
+            #Display graphs
             if graph_type == "Win/Loss Overtime":                
                 amount_won = [record[3] for record in records]
                 amount_lost = [record[4] for record in records]
@@ -190,6 +201,7 @@ class MainApp:
 
         def show_simulation(num_games):
             # nonlocal player_skills
+            #simulate 100 future games
             simul = Simulation()
             player_skill_data = []
             player_skill_data.append(player_skills.get_skill())
@@ -218,11 +230,13 @@ class MainApp:
         match_list.bind("<ButtonRelease-1>", select_record)
 
         # Graph Frame
-        g_frame = LabelFrame(profile, text="Graphs", font="calibri 12 ",bg="#D3D3D3")
-        gid_entry = Entry(g_frame)
-        mid_entry = Entry(g_frame)
+        g_frame = Frame(profile, bg="#D3D3D3")
+        h_frame = LabelFrame(g_frame, text="Player History", font="calibri 12 ",bg="#D3D3D3")
+        s_frame = LabelFrame(g_frame, text="Future Games", font="calibri 12 ",bg="#D3D3D3")
+        gid_entry = Entry(s_frame)
+        mid_entry = Entry(s_frame)
         n=StringVar()
-        mid_graph = ttk.Combobox(g_frame, width = 30, textvariable= n)
+        mid_graph = ttk.Combobox(h_frame, width = 30, textvariable= n)
 
         # Configure widgets
         main_window()
@@ -230,8 +244,9 @@ class MainApp:
         match_table()
         graph_frame()
 
-        
+
     def player_page(self):
+        #Close Main Menu
         self.main.withdraw()
   
         def populate_player_table(id = None):
@@ -239,6 +254,7 @@ class MainApp:
             for player in player_list.get_children():
                 player_list.delete(player)
             
+            #Fill table with players
             records = self.admin.get_all_players_basic_info()
             if id == None:
                 for i, record in enumerate(records):
@@ -248,13 +264,12 @@ class MainApp:
                 for i, record in enumerate(new_records):
                     player_list.insert(parent='', index='end', iid=i, text="", values=(record[2], record[1], record[0])) 
         
-        
-
         def go_back():
             self.main.deiconify()
             player.withdraw()
 
         def player_table():
+            #Player Table format
             style.theme_use('default')
             style.configure("Treeview", background="#D3D3D3", foreground="black", rowheight=25, fieldbackground ="#D3D3D3")
             style.map('Treeview', background=[('selected', "blue")])
@@ -305,7 +320,9 @@ class MainApp:
                 
                 def addPlayer_function(first, last):
                     addPlayer.destroy()
-               
+                    newID = IdRule().create_new_player_ID()
+                    PlayerData(ID = newID, new_player=True, lastname = last, firstname = first)
+    
                 addPlayer = Toplevel(player)
                 addPlayer.title("Add Player")
                 addPlayer.configure(bg="#D3D3D3")
@@ -329,7 +346,6 @@ class MainApp:
                 last_entry = Entry(add_frame, font="calibri")
                 last_entry.grid(row=1, column=1, padx=5, pady=5)
                 
-
                 add_button = Button(addPlayer, text="Add Player", font="calibri 12 ", bg="#D3D3D3", command=lambda:addPlayer_function(first_entry.get(), last_entry.get()))
                 add_button.pack(padx=20, pady=20)
               
@@ -368,17 +384,23 @@ class MainApp:
 
         def command_frame():
 
-            def update_player():
-                pass
-            
-            def reset_List():
-                pass
+            #reset list
+            def reset_List(id = None):
+                for player in player_list.get_children():
+                    player_list.delete(player)
+                
+                records = self.admin.get_all_players_basic_info()
+                if id == None:
+                    for i, record in enumerate(records):
+                        player_list.insert(parent='', index='end', iid=i, text="", values=(record[2], record[1], record[0]))
+                else:
+                    new_records = [r for r in records if r[0] == id]
+                    for i, record in enumerate(new_records):
+                        player_list.insert(parent='', index='end', iid=i, text="", values=(record[2], record[1], record[0])) 
             
             button_frame = LabelFrame(player, text="Commands", font="calibri 12 ",bg="#D3D3D3")
             button_frame.pack(fill="x", expand="yes", padx=20)
 
-            update = Button(button_frame, text="Update Player", font="calibri 12 ",command=update_player)
-            update.grid(row=0, column=0, padx=10, pady=10)
             open = Button(button_frame, text="Open Player Profile", font="calibri 12 ",command=lambda: self.player_profile(player_info))
             open.grid(row=0, column=1, padx=10, pady=10)
             reset = Button(button_frame, text="Reset List", font="calibri 12 ", command=reset_List)
@@ -390,6 +412,7 @@ class MainApp:
             selected = player_list.focus()
             player_info = player_list.item(selected, 'values')
 
+        #Player window
         player = Tk()
         player.title("Players")
         player.configure(bg="#D3D3D3")
@@ -424,39 +447,11 @@ class MainApp:
             self.main.deiconify()
             games.withdraw()
 
+        #simulate future games
         def graph_pg(gameID):
-            
-            def go_back():
-                gameType.withdraw()
+            Simulation().simRealGame(gameID)
 
-            def pop_graph():
-                pass
-
-            def rev_graph():
-                pass
-
-            gameType = Tk()
-            gameType.title(gameID.name)
-            gameType.configure(bg="#D3D3D3")
-            app_width = 400
-            app_height = 200
-            screen_width = gameType.winfo_screenwidth()
-            screen_height = gameType.winfo_screenheight()
-            x = (screen_width / 2) - (app_width / 2)
-            y = (screen_height / 2 ) - (app_height / 2)
-            gameType.geometry(f'{app_width}x{app_height}+{int(x)}+{int(y)}')\
-            
-            gph_frame = LabelFrame(gameType, text="Graphs", font="calibri 12 ",bg="#D3D3D3")
-            gph_frame.pack(pady=10)
-
-            pop_btn = Button(gph_frame, text="Popularity Graph", font="calibri 12 ", bg="#D3D3D3", command = pop_graph)
-            rev_btn = Button(gph_frame, text="Revenue Graph", font="calibri 12 ", bg="#D3D3D3", command = rev_graph)
-            pop_btn.grid(row=0, column=0, padx=20, pady=20)
-            rev_btn.grid(row=0, column=1, padx=20, pady=20)
-
-            exit_btn = Button(gameType, text = 'Exit', font="calibri 12 ", width=7, command = go_back)
-            exit_btn.pack(pady=10, side='bottom')
-
+        #Games window
         games = Tk()
         games.title("Games")
         games.configure(bg="#D3D3D3")
@@ -483,13 +478,17 @@ class MainApp:
         roulette_btn.grid(row=1, column=0, padx=20, pady=20)
         craps_btn.grid(row=1, column=1, padx=20, pady=20)
 
-
-
         exit_btn = Button(games, text = 'Exit', font="calibri 12 ", width=7, command = go_back)
         exit_btn.pack(pady=10, side='bottom')
             
 
     def revenue_page(self):
+        self.main.withdraw()
+        
+        def go_back():
+            self.main.deiconify()
+            revenue.withdraw()
+        
         match_data = self.sql.select_from("MatchData", "*")
         records_by_date = sorted(match_data, key=lambda x: x[2])
 
@@ -509,16 +508,48 @@ class MainApp:
                 profit.append(day_profit)
                 date.append(current_day)
                 day_profit = 0
-            
-        self.plotter.linePlot(date, profit, "Date", "Profit", "Profit for Each Day", 1)
+        
+        def totalProfit():    
+            self.plotter.linePlot(date, profit, "Date", "Profit($)", "Profit for Each Day", 1)
+            self.plotter.show_graphs()
 
         game_data = self.sql.select_from("GameMain", "*")
         labels = [record[1] for record in game_data]
         won = [record[2] for record in game_data]   # Player won here so casino lost
         lost = [record[3] for record in game_data]  # and vice versa
-        self.plotter.pieChart(lost, labels, "Amount Earned in Each Game", explode=True)
-        self.plotter.pieChart(won, labels, "Amount Lost in Each Game", explode=True)
-        self.plotter.show_graphs()
+        
+        def amountEarned():
+            self.plotter.pieChart(lost, labels, "Amount Earned in Each Game", explode=True)
+            self.plotter.show_graphs()
+        
+        def amountLost():
+            self.plotter.pieChart(won, labels, "Amount Lost in Each Game", explode=True)
+            self.plotter.show_graphs()
+        
+        revenue = Tk()
+        revenue.title("Revenue")
+        revenue.configure(bg="#D3D3D3")
+        app_width = 300
+        app_height = 300
+        screen_width = revenue.winfo_screenwidth()
+        screen_height = revenue.winfo_screenheight()
+        x = (screen_width / 2) - (app_width / 2)
+        y = (screen_height / 2 ) - (app_height / 2)
+        revenue.geometry(f'{app_width}x{app_height}+{int(x)}+{int(y)}')
+
+        frame = Frame(revenue, bg="#D3D3D3")
+        frame.pack(pady=10)
+
+        rev_btn = Button(frame, text = 'Revenue', font="calibri 12 ", bg="#D3D3D3", command=totalProfit)
+        rev_btn.grid(row=0, column=0, padx=5, pady=5)
+        won_btn = Button(frame, text = 'Amount Earned', font="calibri 12 ", bg="#D3D3D3", command=amountEarned)
+        won_btn.grid(row=1, column=0, padx=5, pady=5)
+        loss_btn = Button(frame, text = 'Amount Lost', font="calibri 12 ", bg="#D3D3D3", command=amountLost)
+        loss_btn.grid(row=2, column=0, padx=5, pady=5)
+
+        exit_btn = Button(revenue, text = 'Exit', font="calibri 12 ", width=7, command = go_back)
+        exit_btn.pack(pady=10, side='bottom')
+   
    
     def main_menu(self) -> None:
         app_width = 500
@@ -541,6 +572,4 @@ class MainApp:
         exit_btn = Button(self.main, text = 'Exit', font="calibri 12 ", width=7, command = self.main.destroy)
         exit_btn.pack(pady=10, side='bottom')
  
-
-
 GUI = MainApp()

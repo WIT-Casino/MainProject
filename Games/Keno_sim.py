@@ -1,5 +1,6 @@
 import random
 def Keno():
+    """Keno game"""
 
     board = (range(1,80))
     sim = random.sample(board,10)

@@ -1,5 +1,6 @@
 import random
 def slots():
+    """Slots game"""
     attempts = 0
     while attempts < 50:
         slot1 = random.randint(1,10)

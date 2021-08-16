@@ -1,0 +1,149 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>playerskill module &#8212; Casino Management System  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-playerskill">
+<span id="playerskill-module"></span><h1>playerskill module<a class="headerlink" href="#module-playerskill" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="playerskill.PlayerSkill">
+<em class="property">class </em><code class="descclassname">playerskill.</code><code class="descname">PlayerSkill</code><span class="sig-paren">(</span><em>ID</em>, <em>Skill=1</em>, <em>Cheat=1</em>, <em>LUCK=1</em><span class="sig-paren">)</span><a class="headerlink" href="#playerskill.PlayerSkill" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="playerskill.PlayerSkill.get_cheat">
+<code class="descname">get_cheat</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#playerskill.PlayerSkill.get_cheat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="playerskill.PlayerSkill.get_luck">
+<code class="descname">get_luck</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#playerskill.PlayerSkill.get_luck" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="playerskill.PlayerSkill.get_skill">
+<code class="descname">get_skill</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#playerskill.PlayerSkill.get_skill" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="playerskill.PlayerSkill.pull_cheat_from_DB">
+<code class="descname">pull_cheat_from_DB</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#playerskill.PlayerSkill.pull_cheat_from_DB" title="Permalink to this definition">¶</a></dt>
+<dd><p>go to PlayerSkill table and return Cheat stat</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="playerskill.PlayerSkill.pull_luck_from_DB">
+<code class="descname">pull_luck_from_DB</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#playerskill.PlayerSkill.pull_luck_from_DB" title="Permalink to this definition">¶</a></dt>
+<dd><p>go to PlayerSkill table and return LUCK stat</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="playerskill.PlayerSkill.pull_skill_from_DB">
+<code class="descname">pull_skill_from_DB</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#playerskill.PlayerSkill.pull_skill_from_DB" title="Permalink to this definition">¶</a></dt>
+<dd><p>go to PlayerSkill table and return Skill</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="playerskill.PlayerSkill.update_cheat_to_db">
+<code class="descname">update_cheat_to_db</code><span class="sig-paren">(</span><em>new_cheat</em><span class="sig-paren">)</span><a class="headerlink" href="#playerskill.PlayerSkill.update_cheat_to_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>pulls cheat from temp player and updates the db with the temp cheat</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="playerskill.PlayerSkill.update_luck_to_db">
+<code class="descname">update_luck_to_db</code><span class="sig-paren">(</span><em>new_luck</em><span class="sig-paren">)</span><a class="headerlink" href="#playerskill.PlayerSkill.update_luck_to_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>pulls LUCK from temp player and updates the db with the temp LUCK</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="playerskill.PlayerSkill.update_skill_to_db">
+<code class="descname">update_skill_to_db</code><span class="sig-paren">(</span><em>new_skill</em><span class="sig-paren">)</span><a class="headerlink" href="#playerskill.PlayerSkill.update_skill_to_db" title="Permalink to this definition">¶</a></dt>
+<dd><p>pulls skill from temp player and updates the db with the temp skill</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Casino Management System</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Hank Pham, Michael Sobchuk, Christopher Darragh, Thomas Draper, Kevin Huang, Mark Rosado.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/playerskill.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

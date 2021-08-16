@@ -28,15 +28,17 @@ class MatchData:
         self.date = date
 
     def pull_data_from_DB(self):
-        # retrive amount won,  amount lost, and date in MatchData table by matching self.ID with MID
+        """Retrive amount won,  amount lost, and date in MatchData table by matching self.ID with MID"""
+
         self.amountWon = self.sql.select_from_where("MatchData", "Won", "MID", self.matchID)[0][0]
         self.amountLost = self.sql.select_from_where("MatchData", "Lost", "MID", self.matchID)[0][0]
         self.date = self.sql.select_from_where("MatchData", "Date", "MID", self.matchID)[0][0]
 
     def update_data_to_DB(self, new_amountWon, new_amountLost, new_date):
-        # Find the difference between class amount won and lost VS stored amount won and lost in the DB
-        # then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
-        # GID is the first 3 digits of MID
+        """ Find the difference between class amount won and lost VS stored amount won and lost in the DB
+        then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
+        GID is the first 3 digits of MID"""
+
         stored_Won = self.sql.select_from_where("MatchData", "Won", "MID", self.matchID)[0][0]
         stored_Lost = self.sql.select_from_where("MatchData", "Lost", "MID", self.matchID)[0][0]
         
@@ -59,14 +61,16 @@ class GameData:
         self.totalPlayerLost = 0
 
     def pull_data_from_DB(self):
-        # from GameMain
+        """Pull data from GameMain"""
+
         self.totalPlayerWon = self.sql.select_from_where("GameMain", "TotalPlayerWon", "GID", self.gameID)[0][0]
         self.totalPlayerLost = self.sql.select_from_where("GameMain", "TotalPlayerLost", "GID", self.gameID)[0][0]
 
     def update_data_to_DB(self, new_playerWon, new_playerLost):
-        # Find the difference between class amount won and lost VS stored amount won and lost in the DB
-        # then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
-        # GID is the first 3 digits of MID
+        """Find the difference between class amount won and lost VS stored amount won and lost in the DB
+        then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
+        GID is the first 3 digits of MID"""
+        
         stored_Won = self.sql.select_from_where("GameMain", "TotalPLayerWon", "GID", self.gameID)[0][0]
         stored_Lost = self.sql.select_from_where("GameMain", "TotalPlayerLost", "GID", self.gameID)[0][0]
         

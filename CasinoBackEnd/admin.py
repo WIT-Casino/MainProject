@@ -13,9 +13,13 @@ class Admin:
         self.sql = SQL_Databases()
 
     def get_all_players_basic_info(self) -> List:
+        """Return a list of player info: PID, firstname, lastname, registration date, and cheater value"""
+
         return self.sql.select_from("PlayerMain", "*")
 
     def get_all_players_finance(self) -> List:
+        """Return a list of player info: PID, balance, total amount won, and total amount loss"""
+
         return self.sql.select_from("PlayerFinance", "*")
 
 def main():

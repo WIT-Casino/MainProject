@@ -31,6 +31,7 @@ class PlayerData:
 
     def get_finance(self):
         """Return balance, total amount won, and total amount lost as a tuple"""
+        
         return self._balance, self._won, self._lost
 
     def update_ID_to_DB(self, new_ID):
@@ -130,12 +131,14 @@ class PlayerData:
 
     def get_all_matches(self):
         """Return (MatchID, won, lost amounts, date) of all games played by the player"""
+
         # Match PID column in MatchData table to find matches
         return self.sql.select_from_where(
             "MatchData", "*", "PID", self._ID)
     
     def get_matches_from_game(self, gameID):
         """Return (MatchID, won, lost amounts, date) of a game played by this player"""
+
         # Use MatchData table
         # Match PID and parial match between argument gameID and MID column
         all_matches = self.get_all_matches()

@@ -1,0 +1,275 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>gamedata module &#8212; Casino Management System  documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-gamedata">
+<span id="gamedata-module"></span><h1>gamedata module<a class="headerlink" href="#module-gamedata" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="gamedata.G_Baccarat">
+<em class="property">class </em><code class="descclassname">gamedata.</code><code class="descname">G_Baccarat</code><span class="sig-paren">(</span><em>matchID</em>, <em>date</em>, <em>amountWon=0</em>, <em>amountLost=0</em><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.G_Baccarat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gamedata.MatchData" title="gamedata.MatchData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.MatchData</span></code></a>, <a class="reference internal" href="#gamedata.GameData" title="gamedata.GameData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.GameData</span></code></a></p>
+<p>Baccarat- played against dealer 2-9 cards are value ace is 1, rest=0, add hand take ones place number as score 0-9</p>
+<dl class="attribute">
+<dt id="gamedata.G_Baccarat.PrefixID">
+<code class="descname">PrefixID</code><em class="property"> = 7</em><a class="headerlink" href="#gamedata.G_Baccarat.PrefixID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamedata.G_BigSix">
+<em class="property">class </em><code class="descclassname">gamedata.</code><code class="descname">G_BigSix</code><span class="sig-paren">(</span><em>matchID</em>, <em>date</em>, <em>amountWon=0</em>, <em>amountLost=0</em><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.G_BigSix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gamedata.MatchData" title="gamedata.MatchData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.MatchData</span></code></a>, <a class="reference internal" href="#gamedata.GameData" title="gamedata.GameData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.GameData</span></code></a></p>
+<p>Big Six, Wheel of Fortune-</p>
+<dl class="attribute">
+<dt id="gamedata.G_BigSix.PrefixID">
+<code class="descname">PrefixID</code><em class="property"> = 8</em><a class="headerlink" href="#gamedata.G_BigSix.PrefixID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamedata.G_BlackJack">
+<em class="property">class </em><code class="descclassname">gamedata.</code><code class="descname">G_BlackJack</code><span class="sig-paren">(</span><em>matchID</em>, <em>date</em>, <em>amountWon=0</em>, <em>amountLost=0</em><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.G_BlackJack" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gamedata.MatchData" title="gamedata.MatchData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.MatchData</span></code></a>, <a class="reference internal" href="#gamedata.GameData" title="gamedata.GameData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.GameData</span></code></a></p>
+<p>Black Jack- try to get 21, number cars = value ace can be 1 or 11 face cards are 10, bust if hit over 21</p>
+<dl class="attribute">
+<dt id="gamedata.G_BlackJack.PrefixID">
+<code class="descname">PrefixID</code><em class="property"> = 1</em><a class="headerlink" href="#gamedata.G_BlackJack.PrefixID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamedata.G_Craps">
+<em class="property">class </em><code class="descclassname">gamedata.</code><code class="descname">G_Craps</code><span class="sig-paren">(</span><em>matchID</em>, <em>date</em>, <em>amountWon=0</em>, <em>amountLost=0</em><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.G_Craps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gamedata.MatchData" title="gamedata.MatchData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.MatchData</span></code></a>, <a class="reference internal" href="#gamedata.GameData" title="gamedata.GameData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.GameData</span></code></a></p>
+<p>Craps-</p>
+<dl class="attribute">
+<dt id="gamedata.G_Craps.PrefixID">
+<code class="descname">PrefixID</code><em class="property"> = 2</em><a class="headerlink" href="#gamedata.G_Craps.PrefixID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamedata.G_Keno">
+<em class="property">class </em><code class="descclassname">gamedata.</code><code class="descname">G_Keno</code><span class="sig-paren">(</span><em>matchID</em>, <em>date</em>, <em>amountWon=0</em>, <em>amountLost=0</em><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.G_Keno" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gamedata.MatchData" title="gamedata.MatchData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.MatchData</span></code></a>, <a class="reference internal" href="#gamedata.GameData" title="gamedata.GameData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.GameData</span></code></a></p>
+<p>Keno- Player pick 20 numbers fro 1-80, numbers picked payout on how many right numbers picked</p>
+<dl class="attribute">
+<dt id="gamedata.G_Keno.PrefixID">
+<code class="descname">PrefixID</code><em class="property"> = 5</em><a class="headerlink" href="#gamedata.G_Keno.PrefixID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamedata.G_Poker">
+<em class="property">class </em><code class="descclassname">gamedata.</code><code class="descname">G_Poker</code><span class="sig-paren">(</span><em>matchID</em>, <em>date</em>, <em>amountWon=0</em>, <em>amountLost=0</em><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.G_Poker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gamedata.MatchData" title="gamedata.MatchData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.MatchData</span></code></a>, <a class="reference internal" href="#gamedata.GameData" title="gamedata.GameData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.GameData</span></code></a></p>
+<p>Poker</p>
+<dl class="attribute">
+<dt id="gamedata.G_Poker.PrefixID">
+<code class="descname">PrefixID</code><em class="property"> = 6</em><a class="headerlink" href="#gamedata.G_Poker.PrefixID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamedata.G_Roulette">
+<em class="property">class </em><code class="descclassname">gamedata.</code><code class="descname">G_Roulette</code><span class="sig-paren">(</span><em>matchID</em>, <em>date</em>, <em>amountWon=0</em>, <em>amountLost=0</em><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.G_Roulette" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gamedata.MatchData" title="gamedata.MatchData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.MatchData</span></code></a>, <a class="reference internal" href="#gamedata.GameData" title="gamedata.GameData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.GameData</span></code></a></p>
+<p>Roulette- 1 to 10 and 19 to 28, odd numbers are red and even are black. In ranges from 11 to 18 and 29 to 36, odd numbers are black and even are red</p>
+<dl class="attribute">
+<dt id="gamedata.G_Roulette.PrefixID">
+<code class="descname">PrefixID</code><em class="property"> = 3</em><a class="headerlink" href="#gamedata.G_Roulette.PrefixID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamedata.G_Slots">
+<em class="property">class </em><code class="descclassname">gamedata.</code><code class="descname">G_Slots</code><span class="sig-paren">(</span><em>matchID</em>, <em>date</em>, <em>amountWon=0</em>, <em>amountLost=0</em><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.G_Slots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#gamedata.MatchData" title="gamedata.MatchData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.MatchData</span></code></a>, <a class="reference internal" href="#gamedata.GameData" title="gamedata.GameData"><code class="xref py py-class docutils literal notranslate"><span class="pre">gamedata.GameData</span></code></a></p>
+<p>Slots- Pull</p>
+<dl class="attribute">
+<dt id="gamedata.G_Slots.PrefixID">
+<code class="descname">PrefixID</code><em class="property"> = 4</em><a class="headerlink" href="#gamedata.G_Slots.PrefixID" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamedata.GameData">
+<em class="property">class </em><code class="descclassname">gamedata.</code><code class="descname">GameData</code><span class="sig-paren">(</span><em>gameID</em><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.GameData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="gamedata.GameData.pull_data_from_DB">
+<code class="descname">pull_data_from_DB</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.GameData.pull_data_from_DB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Pull data from GameMain</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamedata.GameData.update_data_to_DB">
+<code class="descname">update_data_to_DB</code><span class="sig-paren">(</span><em>new_playerWon</em>, <em>new_playerLost</em><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.GameData.update_data_to_DB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the difference between class amount won and lost VS stored amount won and lost in the DB
+then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
+GID is the first 3 digits of MID</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamedata.GamePrefixID">
+<em class="property">class </em><code class="descclassname">gamedata.</code><code class="descname">GamePrefixID</code><a class="headerlink" href="#gamedata.GamePrefixID" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="gamedata.GamePrefixID.Baccarat">
+<code class="descname">Baccarat</code><em class="property"> = 7</em><a class="headerlink" href="#gamedata.GamePrefixID.Baccarat" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamedata.GamePrefixID.BigSix">
+<code class="descname">BigSix</code><em class="property"> = 8</em><a class="headerlink" href="#gamedata.GamePrefixID.BigSix" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamedata.GamePrefixID.BlackJack">
+<code class="descname">BlackJack</code><em class="property"> = 1</em><a class="headerlink" href="#gamedata.GamePrefixID.BlackJack" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamedata.GamePrefixID.Craps">
+<code class="descname">Craps</code><em class="property"> = 2</em><a class="headerlink" href="#gamedata.GamePrefixID.Craps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamedata.GamePrefixID.Keno">
+<code class="descname">Keno</code><em class="property"> = 5</em><a class="headerlink" href="#gamedata.GamePrefixID.Keno" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamedata.GamePrefixID.Poker">
+<code class="descname">Poker</code><em class="property"> = 6</em><a class="headerlink" href="#gamedata.GamePrefixID.Poker" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamedata.GamePrefixID.Roulette">
+<code class="descname">Roulette</code><em class="property"> = 3</em><a class="headerlink" href="#gamedata.GamePrefixID.Roulette" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="gamedata.GamePrefixID.Slots">
+<code class="descname">Slots</code><em class="property"> = 4</em><a class="headerlink" href="#gamedata.GamePrefixID.Slots" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="gamedata.MatchData">
+<em class="property">class </em><code class="descclassname">gamedata.</code><code class="descname">MatchData</code><span class="sig-paren">(</span><em>matchID</em>, <em>date</em>, <em>amountWon=0</em>, <em>amountLost=0</em><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.MatchData" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="gamedata.MatchData.pull_data_from_DB">
+<code class="descname">pull_data_from_DB</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.MatchData.pull_data_from_DB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrive amount won,  amount lost, and date in MatchData table by matching self.ID with MID</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="gamedata.MatchData.update_data_to_DB">
+<code class="descname">update_data_to_DB</code><span class="sig-paren">(</span><em>new_amountWon</em>, <em>new_amountLost</em>, <em>new_date</em><span class="sig-paren">)</span><a class="headerlink" href="#gamedata.MatchData.update_data_to_DB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find the difference between class amount won and lost VS stored amount won and lost in the DB
+then update the amounts appropriately to the MatchData, PlayerFinance, and GameMain tables
+GID is the first 3 digits of MID</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">Casino Management System</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Hank Pham, Michael Sobchuk, Christopher Darragh, Thomas Draper, Kevin Huang, Mark Rosado.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.8</a>
+      
+      |
+      <a href="_sources/gamedata.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

@@ -77,8 +77,8 @@ class Simulation:
 
         plot = Plotter()
 
-        plot.linePlot(iterList, earningList, "Game Number","Total Earnings ($)","Earnings",1)
-        plot.twoLinePlot(iterList, winningList, iterList, lossesList, "Game Number","Total ($)","Win Loss Graph",1)
+        plot.linePlot(iterList, earningList, "Number of Games","Total Earnings ($)","Earnings",1)
+        plot.twoLinePlot(iterList, winningList, iterList, lossesList, "Number of Games","Total ($)","Won/Loss Graph",1)
         plot.show_graphs()
 
 

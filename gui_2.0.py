@@ -320,9 +320,8 @@ class MainApp:
                 
                 def addPlayer_function(first, last):
                     addPlayer.destroy()
-                    # newID = IdRule().create_new_player_ID()
-                    # print(newID)
-                    # PlayerData(ID = newID, new_player=True, lastname = last, firstname = first)
+                    newID = IdRule().create_new_player_ID()
+                    PlayerData(ID = newID, new_player=True, lastname = last, firstname = first)
     
                 addPlayer = Toplevel(player)
                 addPlayer.title("Add Player")

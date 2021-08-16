@@ -117,7 +117,7 @@ class PlayerData:
 
         last_id = self.sql.get_last_rowID("PlayerMain")
 
-        if int(self._ID) < last_id:
+        if int(self._ID.strip('\'')) < last_id:
             raise Exception(
                 f"Player is already in the database. Player ID: {self._ID}. Last ID: {last_id}")
         else:

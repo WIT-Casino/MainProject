@@ -1,6 +1,6 @@
 import random
 def blackjack():
-
+    """Black Jack game"""
     dealercard = 0
     ##print("-----------------")
     ##print('\033[91m'+"Dealing Dealer Hand: ")

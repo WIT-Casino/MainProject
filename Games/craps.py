@@ -1,5 +1,8 @@
 import random
 def craps():
+    """Craps game"""
+
+    
     # print("Welcome to Craps, enter R to roll for Player 1")
     userinput = "r"
     if (userinput == "R") or (userinput == "r"):
